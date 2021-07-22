@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Enable Developer Settings !-->
+    <SwitchPreference
+        android:key="pref_enable_developer"
+        android:summary="@string/enable_developer_options_summary"
+        android:title="@string/enable_developer_options_text"
+        app:icon="@drawable/ic_baseline_developer_mode_24"/>
+</PreferenceScreen>

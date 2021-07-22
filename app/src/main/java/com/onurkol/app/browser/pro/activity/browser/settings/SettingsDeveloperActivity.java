@@ -1,0 +1,61 @@
+package com.onurkol.app.browser.pro.activity.browser.settings;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.onurkol.app.browser.pro.R;
+import com.onurkol.app.browser.pro.data.BrowserDataManager;
+import com.onurkol.app.browser.pro.fragments.settings.SettingsDeveloperFragment;
+import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
+import com.onurkol.app.browser.pro.lib.ContextManager;
+
+public class SettingsDeveloperActivity extends AppCompatActivity {
+
+    // Elements
+    ImageButton backButton;
+    TextView settingName;
+    // Classes
+    BrowserDataManager dataManager;
+    AppPreferenceManager prefManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Set Current Activity Context
+        ContextManager.Build(this);
+        // Get Classes
+        dataManager=new BrowserDataManager();
+        prefManager=AppPreferenceManager.getInstance();
+        // Create View
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings_developer);
+
+        // Get Elements
+        backButton=findViewById(R.id.backSettingsButton);
+        settingName=findViewById(R.id.settingName);
+
+        // Set Toolbar Title
+        settingName.setText(getString(R.string.developer_options_text));
+
+        // Button Click Events
+        backButton.setOnClickListener(view -> finish());
+
+        // Get Fragment
+        getSupportFragmentManager().beginTransaction().add(R.id.settingsDeveloperFragmentContent, new SettingsDeveloperFragment()).commit();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        // Init Browser Data ( Applying View Settings )
+        dataManager.initBrowserPreferenceSettings();
+        return super.onCreateView(name, context, attrs);
+    }
+}

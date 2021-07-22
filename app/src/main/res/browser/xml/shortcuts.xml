@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Settings Activity !-->
+    <shortcut
+        android:shortcutId="sh_settings"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_settings"
+        android:shortcutShortLabel="@string/settings_text"
+        android:shortcutLongLabel="@string/settings_text"
+        android:shortcutDisabledMessage="@string/settings_text">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.onurkol.app.browser.pro"
+            android:targetClass="com.onurkol.app.browser.pro.activity.SettingsActivity" />
+    </shortcut>
+    <!-- Downloads Activity !-->
+    <shortcut
+        android:shortcutId="sh_downloads"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_downloads"
+        android:shortcutShortLabel="@string/downloads_text"
+        android:shortcutLongLabel="@string/downloads_text"
+        android:shortcutDisabledMessage="@string/downloads_text">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.onurkol.app.browser.pro"
+            android:targetClass="com.onurkol.app.browser.pro.activity.browser.core.DownloadsActivity" />
+    </shortcut>
+    <!-- Bookmarks Activity !-->
+    <shortcut
+        android:shortcutId="sh_bookmarks"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_bookmark"
+        android:shortcutShortLabel="@string/bookmarks_text"
+        android:shortcutLongLabel="@string/bookmarks_text"
+        android:shortcutDisabledMessage="@string/bookmarks_text">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="isShortcut"
+            android:targetPackage="com.onurkol.app.browser.pro"
+            android:targetClass="com.onurkol.app.browser.pro.activity.browser.BookmarkActivity" />
+    </shortcut>
+    <!-- History Activity !-->
+    <shortcut
+        android:shortcutId="sh_history"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_history"
+        android:shortcutShortLabel="@string/history_text"
+        android:shortcutLongLabel="@string/history_text"
+        android:shortcutDisabledMessage="@string/history_text">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.onurkol.app.browser.pro"
+            android:targetClass="com.onurkol.app.browser.pro.activity.browser.HistoryActivity" />
+    </shortcut>
+</shortcuts>
