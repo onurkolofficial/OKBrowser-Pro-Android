@@ -15,7 +15,8 @@ public interface BrowserDefaultSettings {
             KEY_SAVE_FORMS="BROWSER_SAVE_FORMS",
             KEY_SEARCH_ENGINE="BROWSER_SEARCH_ENGINE",
             KEY_APP_LANGUAGE="APPLICATION_LANGUAGE",
-            KEY_APP_THEME="APPLICATION_THEME";
+            KEY_APP_THEME="APPLICATION_THEME",
+            KEY_DEVELOPER_MODE="BROWSER_DEVELOPER_MODE";
 
     // Default Settings
     boolean DEFAULT_JAVASCRIPT_MODE=true,
@@ -25,10 +26,12 @@ public interface BrowserDefaultSettings {
             DEFAULT_ZOOM=true,
             DEFAULT_ZOOM_BUTTONS=false,
             DEFAULT_APP_CACHE=true,
-            DEFAULT_SAVE_FORMS=true;
+            DEFAULT_SAVE_FORMS=true,
+            DEFAULT_DEVELOPER_MODE=false;
 
     // Download Folder
     String BROWSER_DOWNLOAD_FOLDER=Environment.DIRECTORY_DOWNLOADS+"/OKDownloads";
+    String BROWSER_STORAGE_FOLDER=Environment.getExternalStorageDirectory().getPath();
 
     // browser/values/search_engines.xml
     int DEFAULT_SEARCH_ENGINE=0;

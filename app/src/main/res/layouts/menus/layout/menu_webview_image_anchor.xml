@@ -21,135 +21,144 @@
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
     <!-- Image Menu Body !-->
-    <LinearLayout
+    <!-- Menu Buttons Scroll Layout !-->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <!-- Open New Tab Layout Button !-->
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/imageAnchorOpenNewTabLayoutButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Open New Tab Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorOpenNewTabLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/open_new_tab_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_baseline_add_24" />
-        </LinearLayout>
-        <!-- Open Incognito Tab Layout Button !-->
-        <LinearLayout
-            android:id="@+id/imageAnchorOpenIncognitoTabLayoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/open_new_tab_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_add_24" />
+            </LinearLayout>
+            <!-- Open Incognito Tab Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorOpenIncognitoTabLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/open_incognito_tab_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_baseline_add_box_24" />
-        </LinearLayout>
-        <!-- Open Image Layout Button !-->
-        <LinearLayout
-            android:id="@+id/imageAnchorOpenImageLayoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/open_incognito_tab_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_add_box_24" />
+            </LinearLayout>
+            <!-- Open Image Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorOpenImageLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/open_image_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_outline_image_24" />
-        </LinearLayout>
-        <!-- Download Image Layout Button !-->
-        <LinearLayout
-            android:id="@+id/imageAnchorDownloadLayoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/open_image_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_outline_image_24" />
+            </LinearLayout>
+            <!-- Download Image Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorDownloadLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/download_image_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_baseline_get_app_24" />
-        </LinearLayout>
-        <!-- Copy Link Layout Button !-->
-        <LinearLayout
-            android:id="@+id/imageAnchorCopyLinkLayoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/download_image_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_get_app_24" />
+            </LinearLayout>
+            <!-- Copy Link Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorCopyLinkLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/copy_link_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_baseline_content_copy_24" />
-        </LinearLayout>
-        <!-- Copy Link Title Layout Button !-->
-        <LinearLayout
-            android:id="@+id/imageAnchorCopyLinkTextLayoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clickable="true"
-            android:focusable="true">
-            <!-- Title !-->
-            <TextView
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/copy_link_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_content_copy_24" />
+            </LinearLayout>
+            <!-- Copy Link Title Layout Button !-->
+            <LinearLayout
+                android:id="@+id/imageAnchorCopyLinkTextLayoutButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/copy_link_text_text"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_twotone_content_copy_24" />
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/copy_link_text_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_twotone_content_copy_24" />
+            </LinearLayout>
+            <!-- Developer Menu !-->
+            <include
+                android:id="@+id/includeDeveloperMenu"
+                layout="@layout/menu_webview_developer" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -166,6 +166,27 @@
                     android:textSize="16sp"
                     app:drawableStartCompat="@drawable/ic_baseline_find_in_page_24" />
             </LinearLayout>
+            <!-- Developer Menu Layout Button !-->
+            <LinearLayout
+                android:id="@+id/developerMenuLayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/developer_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_developer_mode_24" />
+            </LinearLayout>
             <!-- Bookmarks Layout Button !-->
             <LinearLayout
                 android:id="@+id/bookmarksLayoutButton"

@@ -8,6 +8,6 @@ public interface DownloadsSettings {
     // Preference Keys
     String KEY_DOWNLOAD_PREFERENCE="BROWSER_DOWNLOADS_PREFERENCE";
 
-    // Bookmark List
+    // Downloads List
     ArrayList<DownloadsData> BROWSER_DOWNLOAD_LIST=new ArrayList<>();
 }

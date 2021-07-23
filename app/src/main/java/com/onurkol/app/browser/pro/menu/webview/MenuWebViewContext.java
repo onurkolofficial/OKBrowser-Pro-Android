@@ -5,7 +5,10 @@ import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,17 +22,23 @@ import android.widget.Toast;
 import com.onurkol.app.browser.pro.R;
 import com.onurkol.app.browser.pro.data.browser.DownloadsData;
 import com.onurkol.app.browser.pro.interfaces.BrowserDefaultSettings;
+import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
 import com.onurkol.app.browser.pro.lib.ContextManager;
 import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsHelper;
+import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsManager;
 import com.onurkol.app.browser.pro.lib.browser.tabs.TabBuilder;
 import com.onurkol.app.browser.pro.lib.browser.tabs.core.ToolbarTabCounter;
 import com.onurkol.app.browser.pro.lib.core.PermissionManager;
 import com.onurkol.app.browser.pro.tools.CharLimiter;
 import com.onurkol.app.browser.pro.tools.DateManager;
 import com.onurkol.app.browser.pro.tools.JavascriptManager;
+import com.onurkol.app.browser.pro.tools.URLChecker;
 import com.onurkol.app.browser.pro.webview.OKWebView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
@@ -77,6 +86,7 @@ public class MenuWebViewContext {
 
     // Classes
     static WeakReference<TabBuilder> tabBuilderStatic;
+    static WeakReference<AppPreferenceManager> prefManagerStatic;
     // Services
     static ClipboardManager clipboard = (ClipboardManager) ContextManager.getManager().getContext().getSystemService(Context.CLIPBOARD_SERVICE);
     // Variables
@@ -103,9 +113,11 @@ public class MenuWebViewContext {
                 copyImageLinkLayoutButton = null,
                 copyLinkTextLayoutButton = null,
                 imageDownloadLayoutButton = null;
+        View inflateView=null,includeDeveloperMenu=null;
 
         // Get Classes
         tabBuilderStatic=new WeakReference<>(TabBuilder.Build());
+        prefManagerStatic=new WeakReference<>(AppPreferenceManager.getInstance());
 
         // Set Values
         getLink = url;
@@ -119,55 +131,60 @@ public class MenuWebViewContext {
         // Inflating Menu Layouts
         if(type.equals(KEY_MENU_IMAGE)){
             // Image Context Menu
-            View view = inflater.inflate(R.layout.menu_webview_image, null);
+            inflateView = inflater.inflate(R.layout.menu_webview_image, null);
             // Set Popup View
-            popupWindow.setContentView(view);
+            popupWindow.setContentView(inflateView);
 
             // Get Elements
-            showWebUrl=view.findViewById(R.id.showWebUrl);
-            imageOpenLayoutButton=view.findViewById(R.id.imageOpenLayoutButton);
-            imageOpenNewTabLayoutButton=view.findViewById(R.id.imageOpenNewTabLayoutButton);
-            imageOpenIncognitoLayoutButton=view.findViewById(R.id.imageOpenIncognitoLayoutButton);
-            imageDownloadLayoutButton=view.findViewById(R.id.imageDownloadLayoutButton);
-            copyImageLinkLayoutButton=view.findViewById(R.id.imageCopyLinkLayoutButton);
+            showWebUrl=inflateView.findViewById(R.id.showWebUrl);
+            imageOpenLayoutButton=inflateView.findViewById(R.id.imageOpenLayoutButton);
+            imageOpenNewTabLayoutButton=inflateView.findViewById(R.id.imageOpenNewTabLayoutButton);
+            imageOpenIncognitoLayoutButton=inflateView.findViewById(R.id.imageOpenIncognitoLayoutButton);
+            imageDownloadLayoutButton=inflateView.findViewById(R.id.imageDownloadLayoutButton);
+            copyImageLinkLayoutButton=inflateView.findViewById(R.id.imageCopyLinkLayoutButton);
 
             // Set Text
             showWebUrl.setText(convertImageLink);
         }
         else if(type.equals(KEY_MENU_ANCHOR)){
             // Image Context Menu
-            View view = inflater.inflate(R.layout.menu_webview_anchor, null);
+            inflateView = inflater.inflate(R.layout.menu_webview_anchor, null);
             // Set Popup View
-            popupWindow.setContentView(view);
+            popupWindow.setContentView(inflateView);
 
             // Get Elements
-            showWebUrl=view.findViewById(R.id.showWebUrl);
-            openNewTabLayoutButton=view.findViewById(R.id.anchorOpenNewTabLayoutButton);
-            openIncognitoTabLayoutButton=view.findViewById(R.id.anchorOpenIncognitoTabLayoutButton);
-            copyLinkLayoutButton=view.findViewById(R.id.anchorCopyLinkLayoutButton);
-            copyLinkTextLayoutButton=view.findViewById(R.id.anchorCopyLinkTextLayoutButton);
+            showWebUrl=inflateView.findViewById(R.id.showWebUrl);
+            openNewTabLayoutButton=inflateView.findViewById(R.id.anchorOpenNewTabLayoutButton);
+            openIncognitoTabLayoutButton=inflateView.findViewById(R.id.anchorOpenIncognitoTabLayoutButton);
+            copyLinkLayoutButton=inflateView.findViewById(R.id.anchorCopyLinkLayoutButton);
+            copyLinkTextLayoutButton=inflateView.findViewById(R.id.anchorCopyLinkTextLayoutButton);
 
             // Set Text
             showWebUrl.setText(convertLink);
         }
         else if(type.equals(KEY_MENU_IMAGE_ANCHOR)){
             // Image Context Menu
-            View view = inflater.inflate(R.layout.menu_webview_image_anchor, null);
+            inflateView = inflater.inflate(R.layout.menu_webview_image_anchor, null);
             // Set Popup View
-            popupWindow.setContentView(view);
+            popupWindow.setContentView(inflateView);
 
             // Get Elements
-            showWebUrl=view.findViewById(R.id.showWebUrl);
-            openNewTabLayoutButton=view.findViewById(R.id.imageAnchorOpenNewTabLayoutButton);
-            openIncognitoTabLayoutButton=view.findViewById(R.id.imageAnchorOpenIncognitoTabLayoutButton);
-            imageOpenLayoutButton=view.findViewById(R.id.imageAnchorOpenImageLayoutButton);
-            imageDownloadLayoutButton=view.findViewById(R.id.imageAnchorDownloadLayoutButton);
-            copyLinkLayoutButton=view.findViewById(R.id.imageAnchorCopyLinkLayoutButton);
-            copyLinkTextLayoutButton=view.findViewById(R.id.imageAnchorCopyLinkTextLayoutButton);
+            showWebUrl=inflateView.findViewById(R.id.showWebUrl);
+            openNewTabLayoutButton=inflateView.findViewById(R.id.imageAnchorOpenNewTabLayoutButton);
+            openIncognitoTabLayoutButton=inflateView.findViewById(R.id.imageAnchorOpenIncognitoTabLayoutButton);
+            imageOpenLayoutButton=inflateView.findViewById(R.id.imageAnchorOpenImageLayoutButton);
+            imageDownloadLayoutButton=inflateView.findViewById(R.id.imageAnchorDownloadLayoutButton);
+            copyLinkLayoutButton=inflateView.findViewById(R.id.imageAnchorCopyLinkLayoutButton);
+            copyLinkTextLayoutButton=inflateView.findViewById(R.id.imageAnchorCopyLinkTextLayoutButton);
 
             // Set Text
             showWebUrl.setText(convertLink);
         }
+        includeDeveloperMenu=inflateView.findViewById(R.id.includeDeveloperMenu);
+
+        // Check Developer Menu
+        boolean getDeveloperMode=prefManagerStatic.get().getBoolean(BrowserDefaultSettings.KEY_DEVELOPER_MODE);
+        includeDeveloperMenu.setVisibility((getDeveloperMode ? View.VISIBLE : View.GONE));
 
         // Set Listeners
         if(imageOpenLayoutButton!=null)
@@ -310,27 +327,79 @@ public class MenuWebViewContext {
         DownloadManager downloadManager = (DownloadManager)ContextManager.getManager().getContext().getSystemService(DOWNLOAD_SERVICE);
 
         if(permissionManager.getStoragePermission()){
-            // Get File Info
-            Uri fileUri=Uri.parse(getImageLink);
-            File file=new File(String.valueOf(fileUri));
-            // Set Download Manager Request
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(getImageLink));
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-            // Get File Name
-            String fileName=file.getName();
-            // Get Folder
+            // Get Download Folder
             String downloadFolder=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER;
+            String storageFolder=BrowserDefaultSettings.BROWSER_STORAGE_FOLDER;
             // Get Download Date
             String downloadDate=DateManager.getDate();
-            // Set Folder
-            request.setDestinationInExternalPublicDir(downloadFolder,fileName);
 
-            // Create Data
-            DownloadsHelper.downloadsData=new DownloadsData(fileName, downloadFolder, downloadDate);
-            // Enqueue
-            downloadManager.enqueue(request);
+            // Check Image Url
+            if(URLChecker.isDataImage(getImageLink)){
+                // Save Image
+                File path = new File(storageFolder+"/"+downloadFolder);
+                String filetype = getImageLink.substring(getImageLink.indexOf("/") + 1, getImageLink.indexOf(";"));
+                String filename = System.currentTimeMillis() + "." + filetype;
+                File file = new File(path, filename);
+                try {
+                    if(!path.exists())
+                        path.mkdirs();
+                    if(!file.exists())
+                        file.createNewFile();
+
+                    String base64EncodedString = getImageLink.substring(getImageLink.indexOf(",") + 1);
+                    byte[] decodedBytes = Base64.decode(base64EncodedString, Base64.DEFAULT);
+                    OutputStream os = new FileOutputStream(file);
+                    os.write(decodedBytes);
+                    os.close();
+
+                    //Tell the media scanner about the new file so that it is immediately available to the user.
+                    MediaScannerConnection.scanFile(context,
+                            new String[]{file.toString()}, null,
+                            (path1, uri) -> {});
+
+                    // Add Download Data (Because not enqueue download manager)
+                    DownloadsManager.getInstance().newDownload(new DownloadsData(file.getName(), downloadFolder, downloadDate));
+                    /*
+                    //Set notification after download complete and add "click to view" action to that
+                    String mimetype = getImageLink.substring(getImageLink.indexOf(":") + 1, getImageLink.indexOf("/"));
+                    Intent intent = new Intent();
+                    intent.setAction(android.content.Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(file), (mimetype + "/*"));
+                    PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+                    Notification notification = new Notification.Builder(context)
+                            .setSmallIcon(android.R.drawable.ic_menu_save)
+                            .setContentText(context.getString(R.string.download_image_text))
+                            .setContentTitle(filename)
+                            .setContentIntent(pIntent)
+                            .build();
+
+                    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                    int notificationId = 85851;
+                    NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(notificationId, notification);
+                     */
+                } catch (IOException e) {}
+            }
+            else{
+                // Download Image
+                Uri fileUri=Uri.parse(getImageLink);
+                File file=new File(String.valueOf(fileUri));
+                // Set Download Manager Request
+                DownloadManager.Request request = new DownloadManager.Request(fileUri);
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                // Get File Name
+                String fileName=file.getName();
+                // Set Folder
+                request.setDestinationInExternalPublicDir(downloadFolder,fileName);
+
+                // Create Data
+                DownloadsHelper.downloadsData=new DownloadsData(fileName, downloadFolder, downloadDate);
+                // Enqueue
+                downloadManager.enqueue(request);
+            }
             // Show Message
             Toast.makeText(context,context.getString(R.string.downloading_image_text), Toast.LENGTH_LONG).show();
         }

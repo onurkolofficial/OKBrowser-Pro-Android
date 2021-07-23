@@ -106,4 +106,11 @@
     <string name="app_package_paid_text">Paid (pro)</string>
     <string name="enable_developer_options_text">Enable Developer Options</string>
     <string name="enable_developer_options_summary">Enable and use developer options.</string>
+    <string name="javascript_console_text">Javascript Console</string>
+    <string name="view_source_text">View Source</string>
+    <string name="requests_text">Requests</string>
+    <string name="resources_text">Resources</string>
+    <string name="flexbox_text">Flexbox</string>
+    <string name="check_item_text">Check item</string>
+    <string name="bypass_item_text">Bypass item</string>
 </resources>

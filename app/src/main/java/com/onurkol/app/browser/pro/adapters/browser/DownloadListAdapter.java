@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.onurkol.app.browser.pro.R;
 import com.onurkol.app.browser.pro.data.browser.DownloadsData;
+import com.onurkol.app.browser.pro.interfaces.BrowserDefaultSettings;
 import com.onurkol.app.browser.pro.interfaces.browser.downloads.DownloadsSettings;
 import com.onurkol.app.browser.pro.lib.ContextManager;
 import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsManager;
@@ -83,7 +84,7 @@ public class DownloadListAdapter extends ArrayAdapter<DownloadsData> implements 
         // Button Click Events
         holder.openFileLayoutButton.setOnClickListener(view -> {
             // Open File
-            String file=Environment.getExternalStorageDirectory().getPath()+"/"+data.getFolder()+"/"+data.getFileName();
+            String file=BrowserDefaultSettings.BROWSER_STORAGE_FOLDER+"/"+data.getFolder()+"/"+data.getFileName();
             // Check File
             Uri uri=Uri.parse(file);
             // Set Intent
@@ -110,7 +111,7 @@ public class DownloadListAdapter extends ArrayAdapter<DownloadsData> implements 
 
         holder.deleteDownloadFileButton.setOnClickListener(view -> {
             // Get Delete File
-            String file=Environment.getExternalStorageDirectory().getPath()+"/"+data.getFolder()+"/"+data.getFileName();
+            String file=BrowserDefaultSettings.BROWSER_STORAGE_FOLDER+"/"+data.getFolder()+"/"+data.getFileName();
             // Deleting File
             File fileData = new File(file);
             fileData.delete();

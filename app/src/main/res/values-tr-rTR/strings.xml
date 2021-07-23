@@ -106,4 +106,11 @@
     <string name="app_package_paid_text">Ücretli (pro)</string>
     <string name="enable_developer_options_text">Geliştirici Seçeneklerini Etkinleştir</string>
     <string name="enable_developer_options_summary">Geliştirici seçeneklerini etkinleştir ve kullan.</string>
+    <string name="javascript_console_text">Javascript Konsolu</string>
+    <string name="view_source_text">Kaynağı Göster</string>
+    <string name="requests_text">İstekler</string>
+    <string name="resources_text">Kaynaklar</string>
+    <string name="flexbox_text">Esnek kutu</string>
+    <string name="check_item_text">Öğeyi denetle</string>
+    <string name="bypass_item_text">Öğeyi atla</string>
 </resources>

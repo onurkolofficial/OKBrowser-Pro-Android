@@ -3,25 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- Url !-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/showWebUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_margin="10dp"
-            android:text="URL" />
-    </LinearLayout>
-    <!-- Divider !-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-    <!-- Menu Body !-->
-    <!-- Menu Buttons Scroll Layout !-->
+    <!-- Menu Buttons Layout !-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,9 +11,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!-- Open New Tab Layout Button !-->
+            <!-- Buttons !-->
+            <!-- Javascript Console Layout Button !-->
             <LinearLayout
-                android:id="@+id/anchorOpenNewTabLayoutButton"
+                android:id="@+id/javascriptConsoleLayoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
@@ -46,13 +29,13 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/open_new_tab_text"
+                    android:text="@string/javascript_console_text"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_add_24" />
+                    app:drawableStartCompat="@drawable/icon_console" />
             </LinearLayout>
-            <!-- Open Incognito Tab Layout Button !-->
+            <!-- View Source Layout Button !-->
             <LinearLayout
-                android:id="@+id/anchorOpenIncognitoTabLayoutButton"
+                android:id="@+id/viewSourceLayoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
@@ -67,13 +50,13 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/open_incognito_tab_text"
+                    android:text="@string/view_source_text"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_add_box_24" />
+                    app:drawableStartCompat="@drawable/icon_code" />
             </LinearLayout>
-            <!-- Copy Link Layout Button !-->
+            <!-- Requests Layout Button !-->
             <LinearLayout
-                android:id="@+id/anchorCopyLinkLayoutButton"
+                android:id="@+id/requestsLayoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
@@ -88,13 +71,13 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/copy_link_text"
+                    android:text="@string/requests_text"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_content_copy_24" />
+                    app:drawableStartCompat="@drawable/ic_baseline_http_24" />
             </LinearLayout>
-            <!-- Copy Link Title Layout Button !-->
+            <!-- Resources Layout Button !-->
             <LinearLayout
-                android:id="@+id/anchorCopyLinkTextLayoutButton"
+                android:id="@+id/resourcesLayoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
@@ -109,14 +92,10 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/copy_link_text_text"
+                    android:text="@string/resources_text"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_twotone_content_copy_24" />
+                    app:drawableStartCompat="@drawable/ic_baseline_source_24" />
             </LinearLayout>
-            <!-- Developer Menu !-->
-            <include
-                android:id="@+id/includeDeveloperMenu"
-                layout="@layout/menu_webview_developer" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

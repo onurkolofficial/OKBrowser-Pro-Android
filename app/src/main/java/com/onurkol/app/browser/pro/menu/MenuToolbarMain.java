@@ -76,7 +76,7 @@ public class MenuToolbarMain {
         // Elements
         LinearLayout exitBrowserLayoutButton, newTabLayoutButton, newIncognitoTabLayoutButton,
                 closeAllTabsLayoutButton,desktopModeLayoutCheckbox, findInPageLayoutButton,
-                bookmarksLayoutButton, settingsLayoutButton;
+                bookmarksLayoutButton, settingsLayoutButton, developerMenuLayoutButton;
         ImageButton menuForwardButton, menuRefreshButton, addBookmarkButton,downloadsButton,
                 historyButton;
         CheckBox desktopModeCheckBox;
@@ -110,6 +110,7 @@ public class MenuToolbarMain {
         addBookmarkButton=view.findViewById(R.id.addBookmarkButton);
         downloadsButton=view.findViewById(R.id.downloadsButton);
         historyButton=view.findViewById(R.id.historyButton);
+        developerMenuLayoutButton=view.findViewById(R.id.developerMenuLayoutButton);
 
         // Get WebView
         OKWebView getWebView;
@@ -144,6 +145,7 @@ public class MenuToolbarMain {
         findInPageLayoutButton.setOnClickListener(findPageButtonListener);
         desktopModeLayoutCheckbox.setOnClickListener(desktopModeButtonListener);
         addBookmarkButton.setOnClickListener(addBookmarkButtonListener);
+        developerMenuLayoutButton.setOnClickListener(showDeveloperMenuListener);
 
         // Check Show Some Menu Buttons
         if(getWebView.getUrl()==null || getWebView.getUrl().equals("") || getWebView.onBackView) {
@@ -163,6 +165,10 @@ public class MenuToolbarMain {
 
         // Check Desktop Mode Button
         desktopModeCheckBox.setChecked(getWebView.isDesktopMode);
+
+        // Check Developer Menu Button
+        boolean developerMode=prefManager.getBoolean(BrowserDefaultSettings.KEY_DEVELOPER_MODE);
+        developerMenuLayoutButton.setVisibility((developerMode ? View.VISIBLE : View.GONE));
 
         // Check Bookmarks
         if(bookmarkManager.getSavedBookmarkData().size()<=0){
@@ -428,6 +434,15 @@ public class MenuToolbarMain {
                 Toast.makeText(contextStatic.get(), contextStatic.get().getString(R.string.bookmark_added_text), Toast.LENGTH_SHORT).show();
             }
         }
+        // Dismiss Popup
+        popupWindow.dismiss();
+    };
+    // Show Developer Menu
+    static View.OnClickListener showDeveloperMenuListener= view -> {
+        // Get Context Activity
+        Activity activity=ContextManager.getManager().getContextActivity();
+        // Show Developer Menu
+        MenuToolbarMainDeveloper.getMenu().showAsDropDown(activity.findViewById(R.id.browserMenuButton));
         // Dismiss Popup
         popupWindow.dismiss();
     };
