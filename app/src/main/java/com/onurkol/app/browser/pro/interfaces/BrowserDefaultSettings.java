@@ -17,6 +17,10 @@ public interface BrowserDefaultSettings {
             KEY_APP_LANGUAGE="APPLICATION_LANGUAGE",
             KEY_APP_THEME="APPLICATION_THEME",
             KEY_DEVELOPER_MODE="BROWSER_DEVELOPER_MODE";
+    // Developer Settings Preference Keys
+    String KEY_DEV_EDIT_TEXT_LINE_NUMBERS="DEVELOPER_EDIT_TEXT_LINE_NUMBERS",
+            KEY_DEV_EDIT_TEXT_LINE_WRAP="DEVELOPER_EDIT_TEXT_LINE_WRAP",
+            KEY_DEV_STOP_REFRESH="DEVELOPER_STOP_REFRESH";
 
     // Default Settings
     boolean DEFAULT_JAVASCRIPT_MODE=true,
@@ -28,6 +32,10 @@ public interface BrowserDefaultSettings {
             DEFAULT_APP_CACHE=true,
             DEFAULT_SAVE_FORMS=true,
             DEFAULT_DEVELOPER_MODE=false;
+    // Default Developer Settings
+    boolean DEFAULT_DEV_EDIT_TEXT_LINE_NUMBERS=true,
+            DEFAULT_DEV_EDIT_TEXT_LINE_WRAP=false,
+            DEFAULT_DEV_STOP_REFRESH=false;
 
     // Download Folder
     String BROWSER_DOWNLOAD_FOLDER=Environment.DIRECTORY_DOWNLOADS+"/OKDownloads";

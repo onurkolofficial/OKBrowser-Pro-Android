@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- Dialog Layout !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- Request Url !-->
+        <TextView
+            android:id="@+id/getRequestUrl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:text="REQUEST_FULL_URL" />
+        <!-- Buttons Layout !-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <!-- Code Copy !-->
+            <ImageButton
+                android:id="@+id/copyRequestUrlButton"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="?attr/actionBarItemBackground"
+                android:tooltipText="@string/copy_text"
+                android:src="@drawable/ic_baseline_content_copy_24" />
+            <!-- Right Buttons Layout !-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
+                <!-- Close Button !-->
+                <Button
+                    android:id="@+id/closeRequestButton"
+                    style="@style/BorderlessButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/cancel_text" />
+                <!-- Show Detail Button !-->
+                <Button
+                    android:id="@+id/showRequestButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/white"
+                    android:text="@string/show_details_text"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

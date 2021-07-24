@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -180,7 +179,6 @@ public class TabFragment extends Fragment implements BrowserActionKeys {
 
         // Get Classes
         JavascriptManager jsManager=JavascriptManager.getManager();
-
         // Init Javascript Manager
         jsManager.setWebView(okBrowserWebView);
 
@@ -189,14 +187,13 @@ public class TabFragment extends Fragment implements BrowserActionKeys {
         float defBlurValue=0.5F;
         if(type == WebView.HitTestResult.IMAGE_TYPE){
             // Open Image Menu
-            MenuWebViewContext.getImageContextMenu(result.getExtra())
-                    .showAtLocation(okBrowserWebView, Gravity.CENTER, 0,0);
+            jsManager.showMenuAndDataWithJavascript(MenuWebViewContext.KEY_MENU_IMAGE,result.getExtra());
             // Set Background Blur
             rootView.setAlpha(defBlurValue);
         }
         else if(type == WebView.HitTestResult.SRC_ANCHOR_TYPE){
             // Open Anchor Menu
-            jsManager.getUrlAndTitleWithJavascript(MenuWebViewContext.KEY_MENU_ANCHOR,result.getExtra());
+            jsManager.showMenuAndDataWithJavascript(MenuWebViewContext.KEY_MENU_ANCHOR,result.getExtra());
             // Set Background Blur
             rootView.setAlpha(defBlurValue);
         }
@@ -211,9 +208,9 @@ public class TabFragment extends Fragment implements BrowserActionKeys {
 
             // Check and Get Title, Url and Image URL
             if(URLUtil.isValidUrl(result.getExtra()))
-                jsManager.getUrlAndTitleWithJavascript(MenuWebViewContext.KEY_MENU_IMAGE_ANCHOR, result.getExtra());
+                jsManager.showMenuAndDataWithJavascript(MenuWebViewContext.KEY_MENU_IMAGE_ANCHOR, result.getExtra());
             else
-                jsManager.getUrlAndTitleWithJavascript(MenuWebViewContext.KEY_MENU_ANCHOR, getMessageURL);
+                jsManager.showMenuAndDataWithJavascript(MenuWebViewContext.KEY_MENU_ANCHOR, getMessageURL);
             // Set Background Blur
             rootView.setAlpha(defBlurValue);
 

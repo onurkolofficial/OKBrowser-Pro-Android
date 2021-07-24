@@ -103,7 +103,7 @@
     <string name="developer_web_page_summary">Geliştirici web sayfasını aç.</string>
     <string name="developer_text">Geliştirici</string>
     <string name="app_package_text">Uygulama Paketi</string>
-    <string name="app_package_paid_text">Ücretli (pro)</string>
+    <string name="app_package_paid_text">Ücretli</string>
     <string name="enable_developer_options_text">Geliştirici Seçeneklerini Etkinleştir</string>
     <string name="enable_developer_options_summary">Geliştirici seçeneklerini etkinleştir ve kullan.</string>
     <string name="javascript_console_text">Javascript Konsolu</string>
@@ -113,4 +113,17 @@
     <string name="flexbox_text">Esnek kutu</string>
     <string name="check_item_text">Öğeyi denetle</string>
     <string name="bypass_item_text">Öğeyi atla</string>
+    <string name="line_wrap_text">Satır Kaydırma</string>
+    <string name="line_wrap_summary">Satır kaydırmayı etkinleştir.</string>
+    <string name="line_numbers_text">Satır Numaraları</string>
+    <string name="line_numbers_summary">Satır numaralarını etkinleştir.</string>
+    <string name="stop_page_refresh_text">Sayfa Yenilemeyi Durdur</string>
+    <string name="stop_page_refresh_summary">Sayfa yenilemeyi durdurur.</string>
+    <string name="copy_text">Kopyala</string>
+    <string name="apply_text">Uygula</string>
+    <string name="refresh_text">Yenile</string>
+    <string name="cancel_text">İptal</string>
+    <string name="show_details_text">Detayları Göster</string>
+    <string name="code_copied_text">Kod Kopyalandı!</string>
+    <string name="please_wait_text">Lütfen bekleyin!</string>
 </resources>

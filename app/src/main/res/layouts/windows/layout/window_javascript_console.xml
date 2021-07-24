@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- Javascript Console Toolbar !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:gravity="end"
+        android:layout_marginEnd="10dp">
+        <!-- Clear Console Log Button !-->
+        <ImageButton
+            android:id="@+id/clearConsoleLog"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="?attr/actionBarItemBackground"
+            android:tooltipText="@string/delete_text"
+            android:src="@drawable/ic_baseline_delete_24" />
+    </LinearLayout>
+    <!-- Console Message Layout !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical">
+        <!-- for Scrollable Messages !-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Console Messages EditText!-->
+                <EditText
+                    android:id="@+id/javascriptLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textMultiLine"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="top"
+                    android:enabled="false"
+                    android:background="@color/transparent"
+                    android:textColor="@color/white1"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <!-- Console Enter Command EditText !-->
+    <EditText
+        android:id="@+id/javascriptCommand"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="8dp"
+        android:paddingTop="15dp"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="20dp" />
+</LinearLayout>

@@ -103,7 +103,7 @@
     <string name="developer_web_page_summary">Open developer web page.</string>
     <string name="developer_text">Developer</string>
     <string name="app_package_text">Application Package</string>
-    <string name="app_package_paid_text">Paid (pro)</string>
+    <string name="app_package_paid_text">Paid</string>
     <string name="enable_developer_options_text">Enable Developer Options</string>
     <string name="enable_developer_options_summary">Enable and use developer options.</string>
     <string name="javascript_console_text">Javascript Console</string>
@@ -113,4 +113,17 @@
     <string name="flexbox_text">Flexbox</string>
     <string name="check_item_text">Check item</string>
     <string name="bypass_item_text">Bypass item</string>
+    <string name="line_wrap_summary">Enable line wrap.</string>
+    <string name="line_wrap_text">Line Wrap</string>
+    <string name="line_numbers_summary">Enable line numbers.</string>
+    <string name="line_numbers_text">Line Numbers</string>
+    <string name="stop_page_refresh_text">Stop Page Refresh</string>
+    <string name="stop_page_refresh_summary">It stops refreshing the page.</string>
+    <string name="copy_text">Copy</string>
+    <string name="apply_text">Apply</string>
+    <string name="refresh_text">Refresh</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="show_details_text">Show Details</string>
+    <string name="code_copied_text">Code Copied!</string>
+    <string name="please_wait_text">Please wait!</string>
 </resources>

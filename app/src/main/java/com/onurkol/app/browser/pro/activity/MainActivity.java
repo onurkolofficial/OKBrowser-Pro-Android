@@ -627,23 +627,32 @@ public class MainActivity extends AppCompatActivity implements BrowserActionKeys
         browserSwipeRefresh.setEnabled(webView.getScrollY()==0);
     };
     SwipeRefreshLayout.OnRefreshListener swipeRefreshListener=() -> {
-        // Get WebView
-        OKWebView webView;
-        if(tabBuilder.getActiveTabFragment()!=null)
-            webView = tabBuilder.getActiveTabFragment().getWebView();
-        else
-            webView = tabBuilder.getActiveIncognitoFragment().getWebView();
-        // Check Url
-        if(webView.getUrl()==null || webView.getUrl().equals(""))
+        // Get Preference Manager
+        AppPreferenceManager prefManager=AppPreferenceManager.getInstance();
+        // Check Developer Mode (Stop Refresh)
+        if(prefManager.getBoolean(BrowserDefaultSettings.KEY_DEV_STOP_REFRESH)){
             // Stop Swipe Refresh
             browserSwipeRefresh.setRefreshing(false);
+        }
         else {
-            // Set Refresh Status
-            webView.isRefreshing = true;
-            // Set Swipe Refresh
-            browserSwipeRefresh.setRefreshing(true);
-            // Refres WebView
-            webView.reload();
+            // Get WebView
+            OKWebView webView;
+            if (tabBuilder.getActiveTabFragment() != null)
+                webView = tabBuilder.getActiveTabFragment().getWebView();
+            else
+                webView = tabBuilder.getActiveIncognitoFragment().getWebView();
+            // Check Url
+            if (webView.getUrl() == null || webView.getUrl().equals(""))
+                // Stop Swipe Refresh
+                browserSwipeRefresh.setRefreshing(false);
+            else {
+                // Set Refresh Status
+                webView.isRefreshing = true;
+                // Set Swipe Refresh
+                browserSwipeRefresh.setRefreshing(true);
+                // Refres WebView
+                webView.reload();
+            }
         }
     };
     View.OnClickListener closeFindListener=view -> {

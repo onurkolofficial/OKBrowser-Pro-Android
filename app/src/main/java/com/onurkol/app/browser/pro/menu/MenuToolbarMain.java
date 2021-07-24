@@ -322,23 +322,25 @@ public class MenuToolbarMain {
     };
     // Browser Refresh Button
     static View.OnClickListener refreshButtonListener=view -> {
-        // Get WebView
-        OKWebView webView;
-        if(tabBuilderStatic.get().getActiveTabFragment()!=null)
-            webView = tabBuilderStatic.get().getActiveTabFragment().getWebView();
-        else
-            webView = tabBuilderStatic.get().getActiveIncognitoFragment().getWebView();
+        // Check Developer Mode (Stop Refresh)
+        if(!prefManagerStatic.get().getBoolean(BrowserDefaultSettings.KEY_DEV_STOP_REFRESH)) {
+            // Get WebView
+            OKWebView webView;
+            if (tabBuilderStatic.get().getActiveTabFragment() != null)
+                webView = tabBuilderStatic.get().getActiveTabFragment().getWebView();
+            else
+                webView = tabBuilderStatic.get().getActiveIncognitoFragment().getWebView();
 
-        if(webView.isRefreshing || webView.isLoading){
-            webView.isRefreshing=false;
-            webView.isLoading=false;
-            webView.stopLoading();
-        }
-        else{
-            if(webView.getUrl()!=null) {
-                // Refresh Current WebView
-                webView.isRefreshing = true;
-                webView.reload();
+            if (webView.isRefreshing || webView.isLoading) {
+                webView.isRefreshing = false;
+                webView.isLoading = false;
+                webView.stopLoading();
+            } else {
+                if (webView.getUrl() != null) {
+                    // Refresh Current WebView
+                    webView.isRefreshing = true;
+                    webView.reload();
+                }
             }
         }
         // Dismiss Popup

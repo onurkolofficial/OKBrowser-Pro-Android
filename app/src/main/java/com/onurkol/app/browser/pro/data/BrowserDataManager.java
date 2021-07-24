@@ -79,6 +79,16 @@ public class BrowserDataManager implements BrowserDefaultSettings {
             // Developer Mode
             if (!prefManager.getBoolean(KEY_DEVELOPER_MODE))
                 prefManager.setPreference(KEY_DEVELOPER_MODE, DEFAULT_DEVELOPER_MODE);
+            /** Developer Settings */
+            // Edit Text Line Numbers
+            if (!prefManager.getBoolean(KEY_DEV_EDIT_TEXT_LINE_NUMBERS))
+                prefManager.setPreference(KEY_DEV_EDIT_TEXT_LINE_NUMBERS, DEFAULT_DEV_EDIT_TEXT_LINE_NUMBERS);
+            // Edit Text Line Wrap
+            if (!prefManager.getBoolean(KEY_DEV_EDIT_TEXT_LINE_WRAP))
+                prefManager.setPreference(KEY_DEV_EDIT_TEXT_LINE_WRAP, DEFAULT_DEV_EDIT_TEXT_LINE_WRAP);
+            // Stop Refresh
+            if (!prefManager.getBoolean(KEY_DEV_STOP_REFRESH))
+                prefManager.setPreference(KEY_DEV_STOP_REFRESH, DEFAULT_DEV_STOP_REFRESH);
         }
         // Search Engine
         if(prefManager.getInt(KEY_SEARCH_ENGINE)==AppPreferenceManager.INTEGER_NULL)

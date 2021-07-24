@@ -5,6 +5,7 @@ import android.os.Message;
 import android.view.Gravity;
 import android.webkit.ValueCallback;
 
+import com.onurkol.app.browser.pro.lib.browser.DeveloperManager;
 import com.onurkol.app.browser.pro.menu.webview.MenuWebViewContext;
 import com.onurkol.app.browser.pro.webview.OKWebView;
 
@@ -40,7 +41,10 @@ public class JavascriptManager {
         view.evaluateJavascript(javascript,javascriptResultCallback);
     }
 
-    public void getUrlAndTitleWithJavascript(String type, String url){
+    public void showMenuAndDataWithJavascript(String type, String url){
+        // Get Classes
+        DeveloperManager devManager=DeveloperManager.getManager();
+
         // Open Anchor Menu ( TabFragment & IncognitoTabFragment )
         ValueCallback<String> javascriptValueCallback=string -> {
             // Get Link Title
@@ -49,6 +53,9 @@ public class JavascriptManager {
 
             // Get Current WebView
             OKWebView webView=getWebView();
+
+            // Check Touched Item
+            devManager.updateTouchedItemSourceCode();
 
             if(type.equals(MenuWebViewContext.KEY_MENU_IMAGE_ANCHOR)){
                 // Get Handler URL
@@ -61,7 +68,11 @@ public class JavascriptManager {
                 MenuWebViewContext.getImageAnchorContextMenu(getLink, webView.getHitTestResult().getExtra(), getLinkTitle)
                         .showAtLocation(webView, Gravity.CENTER, 0, 0);
             }
-            else{
+            else if(type.equals(MenuWebViewContext.KEY_MENU_IMAGE)){
+                MenuWebViewContext.getImageContextMenu(getLink)
+                        .showAtLocation(webView, Gravity.CENTER, 0, 0);
+            }
+            else if(type.equals(MenuWebViewContext.KEY_MENU_ANCHOR)){
                 // Open Context Menu
                 MenuWebViewContext.getAnchorContextMenu(getLink, getLinkTitle)
                         .showAtLocation(webView, Gravity.CENTER, 0, 0);

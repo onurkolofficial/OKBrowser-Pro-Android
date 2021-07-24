@@ -7,4 +7,32 @@
         android:summary="@string/enable_developer_options_summary"
         android:title="@string/enable_developer_options_text"
         app:icon="@drawable/ic_baseline_developer_mode_24"/>
+    <!-- View Source Settings !-->
+    <PreferenceCategory
+        android:title="@string/view_source_text"
+        app:iconSpaceReserved="false">
+        <!-- Line Numbers !-->
+        <CheckBoxPreference
+            android:key="pref_enable_line_number"
+            android:summary="@string/line_numbers_summary"
+            android:title="@string/line_numbers_text"
+            app:icon="@drawable/ic_baseline_format_list_numbered_24"/>
+        <!-- Line Wrap !-->
+        <CheckBoxPreference
+            android:key="pref_enable_line_wrap"
+            android:summary="@string/line_wrap_summary"
+            android:title="@string/line_wrap_text"
+            app:icon="@drawable/ic_baseline_wrap_text_24"/>
+    </PreferenceCategory>
+    <!-- View Source Settings !-->
+    <PreferenceCategory
+        android:title="@string/check_item_text"
+        app:iconSpaceReserved="false">
+        <!-- Line Numbers !-->
+        <CheckBoxPreference
+            android:key="pref_enable_stop_refresh"
+            android:summary="@string/stop_page_refresh_summary"
+            android:title="@string/stop_page_refresh_text"
+            app:icon="@drawable/ic_baseline_sync_disabled_24"/>
+    </PreferenceCategory>
 </PreferenceScreen>

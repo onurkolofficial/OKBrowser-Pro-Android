@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- Resources Toolbar !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:gravity="end"
+        android:layout_marginEnd="10dp">
+        <!-- Refresh Button !-->
+        <ImageButton
+            android:id="@+id/resourcesRefreshButton"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="?attr/actionBarItemBackground"
+            android:tooltipText="@string/refresh_text"
+            android:src="@drawable/ic_baseline_refresh_24" />
+    </LinearLayout>
+    <!-- Resources List !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- List View !-->
+        <ListView
+            android:id="@+id/resourcesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/transparent"/>
+    </LinearLayout>
+</LinearLayout>

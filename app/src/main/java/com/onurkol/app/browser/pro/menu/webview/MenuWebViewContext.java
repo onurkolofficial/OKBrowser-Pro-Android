@@ -7,13 +7,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -24,6 +22,7 @@ import com.onurkol.app.browser.pro.data.browser.DownloadsData;
 import com.onurkol.app.browser.pro.interfaces.BrowserDefaultSettings;
 import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
 import com.onurkol.app.browser.pro.lib.ContextManager;
+import com.onurkol.app.browser.pro.lib.browser.DeveloperManager;
 import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsHelper;
 import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsManager;
 import com.onurkol.app.browser.pro.lib.browser.tabs.TabBuilder;
@@ -34,6 +33,7 @@ import com.onurkol.app.browser.pro.tools.DateManager;
 import com.onurkol.app.browser.pro.tools.JavascriptManager;
 import com.onurkol.app.browser.pro.tools.URLChecker;
 import com.onurkol.app.browser.pro.webview.OKWebView;
+import com.onurkol.app.browser.pro.windows.developer.WindowCheckItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -112,7 +112,11 @@ public class MenuWebViewContext {
                 copyLinkLayoutButton = null,
                 copyImageLinkLayoutButton = null,
                 copyLinkTextLayoutButton = null,
-                imageDownloadLayoutButton = null;
+                imageDownloadLayoutButton = null,
+                checkItemLayoutButton = null,
+                bypassItemLayoutButton = null,
+                flexboxLayoutButton = null;
+
         View inflateView=null,includeDeveloperMenu=null;
 
         // Get Classes
@@ -181,6 +185,9 @@ public class MenuWebViewContext {
             showWebUrl.setText(convertLink);
         }
         includeDeveloperMenu=inflateView.findViewById(R.id.includeDeveloperMenu);
+        checkItemLayoutButton=inflateView.findViewById(R.id.checkItemLayoutButton);
+        bypassItemLayoutButton=inflateView.findViewById(R.id.bypassItemLayoutButton);
+        flexboxLayoutButton=inflateView.findViewById(R.id.flexboxLayoutButton);
 
         // Check Developer Menu
         boolean getDeveloperMode=prefManagerStatic.get().getBoolean(BrowserDefaultSettings.KEY_DEVELOPER_MODE);
@@ -205,6 +212,12 @@ public class MenuWebViewContext {
             copyLinkLayoutButton.setOnClickListener(copyLinkListener);
         if(copyLinkTextLayoutButton!=null)
             copyLinkTextLayoutButton.setOnClickListener(copyLinkTextListener);
+        if(checkItemLayoutButton!=null)
+            checkItemLayoutButton.setOnClickListener(checkItemListener);
+        if(bypassItemLayoutButton!=null)
+            bypassItemLayoutButton.setOnClickListener(bypassItemListener);
+        if(flexboxLayoutButton!=null)
+            flexboxLayoutButton.setOnClickListener(flexboxItemListener);
 
         // Set Popup Window Settings
         popupWindow.setFocusable(true);
@@ -227,7 +240,7 @@ public class MenuWebViewContext {
         // Get Activity
         Activity activity=ContextManager.getManager().getContextActivity();
         // Hide Incognito Icon
-        ((ImageView)activity.findViewById(R.id.incognitoIcon)).setVisibility(View.GONE);
+        activity.findViewById(R.id.incognitoIcon).setVisibility(View.GONE);
         // Update Tab Count
         ((ImageButton)activity.findViewById(R.id.browserTabListButton)).setImageDrawable(new ToolbarTabCounter().getTabCountDrawable());
 
@@ -242,7 +255,7 @@ public class MenuWebViewContext {
         // Get Activity
         Activity activity=ContextManager.getManager().getContextActivity();
         // Show Incognito Icon
-        ((ImageView)activity.findViewById(R.id.incognitoIcon)).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.incognitoIcon).setVisibility(View.VISIBLE);
         // Update Tab Count
         ((ImageButton)activity.findViewById(R.id.browserTabListButton)).setImageDrawable(new ToolbarTabCounter().getIncognitoTabCountDrawable());
 
@@ -293,7 +306,7 @@ public class MenuWebViewContext {
         // Get Activity
         Activity activity=ContextManager.getManager().getContextActivity();
         // Hide Incognito Icon
-        ((ImageView)activity.findViewById(R.id.incognitoIcon)).setVisibility(View.GONE);
+        activity.findViewById(R.id.incognitoIcon).setVisibility(View.GONE);
         // Update Tab Count
         ((ImageButton)activity.findViewById(R.id.browserTabListButton)).setImageDrawable(new ToolbarTabCounter().getTabCountDrawable());
 
@@ -308,7 +321,7 @@ public class MenuWebViewContext {
         // Get Activity
         Activity activity=ContextManager.getManager().getContextActivity();
         // Show Incognito Icon
-        ((ImageView)activity.findViewById(R.id.incognitoIcon)).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.incognitoIcon).setVisibility(View.VISIBLE);
         // Update Tab Count
         ((ImageButton)activity.findViewById(R.id.browserTabListButton)).setImageDrawable(new ToolbarTabCounter().getIncognitoTabCountDrawable());
 
@@ -317,7 +330,6 @@ public class MenuWebViewContext {
         // Dismiss Popup
         popupWindow.dismiss();
     };
-
     // Get Download Manager
     private final static View.OnClickListener downloadImageListener=view -> {
         // Get Context
@@ -407,7 +419,29 @@ public class MenuWebViewContext {
             // Request Permission
             permissionManager.setStoragePermission();
         }
-
+        // Dismiss Popup
+        popupWindow.dismiss();
+    };
+    // Check Item Listener
+    private final static View.OnClickListener checkItemListener=view -> {
+        // Show Check Item Window
+        WindowCheckItem.getWindow().show();
+        // Dismiss Popup
+        popupWindow.dismiss();
+    };
+    // Bypass Item Listener
+    private final static View.OnClickListener bypassItemListener=view -> {
+        DeveloperManager devManager=DeveloperManager.getManager();
+        // Show Check Item Window
+        devManager.bypassTouchItem();
+        // Dismiss Popup
+        popupWindow.dismiss();
+    };
+    // Flexbox Item Listener
+    private final static View.OnClickListener flexboxItemListener=view -> {
+        DeveloperManager devManager=DeveloperManager.getManager();
+        // Show Check Item Window
+        devManager.flexboxTouchItem();
         // Dismiss Popup
         popupWindow.dismiss();
     };
