@@ -89,6 +89,7 @@ public class ResourceDetailActivity extends AppCompatActivity {
         loadingTextLayout.setVisibility(View.VISIBLE);
 
         sourcePreviewEditText.setText("");
+        inputData="";
 
         // Check is Created (for Theme bug)
         if(!isCreated) {
