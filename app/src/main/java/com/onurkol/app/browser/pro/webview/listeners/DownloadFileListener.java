@@ -3,6 +3,7 @@ package com.onurkol.app.browser.pro.webview.listeners;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.webkit.DownloadListener;
 import android.widget.Toast;
 
@@ -44,10 +45,14 @@ public class DownloadFileListener implements DownloadListener, DownloadsSettings
             String fileName=file.getName();
             // Get Folder
             String downloadFolder=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER;
+            String downloadFolderApi30Up=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER_API30_UP;
             // Get Download Date
             String downloadDate=DateManager.getDate();
             // Set Folder
-            request.setDestinationInExternalPublicDir(downloadFolder,fileName);
+            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q)
+                request.setDestinationInExternalPublicDir(downloadFolderApi30Up,fileName);
+            else
+                request.setDestinationInExternalPublicDir(downloadFolder,fileName);
 
             // Create Data
             DownloadsHelper.downloadsData=new DownloadsData(fileName, downloadFolder, downloadDate);

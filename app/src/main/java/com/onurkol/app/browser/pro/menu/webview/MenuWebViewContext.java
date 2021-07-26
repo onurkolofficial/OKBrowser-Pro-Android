@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -341,6 +342,7 @@ public class MenuWebViewContext {
         if(permissionManager.getStoragePermission()){
             // Get Download Folder
             String downloadFolder=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER;
+            String downloadFolderApi30Up=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER_API30_UP;
             String storageFolder=BrowserDefaultSettings.BROWSER_STORAGE_FOLDER;
             // Get Download Date
             String downloadDate=DateManager.getDate();
@@ -405,7 +407,10 @@ public class MenuWebViewContext {
                 // Get File Name
                 String fileName=file.getName();
                 // Set Folder
-                request.setDestinationInExternalPublicDir(downloadFolder,fileName);
+                if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q)
+                    request.setDestinationInExternalPublicDir(downloadFolderApi30Up,fileName);
+                else
+                    request.setDestinationInExternalPublicDir(downloadFolder,fileName);
 
                 // Create Data
                 DownloadsHelper.downloadsData=new DownloadsData(fileName, downloadFolder, downloadDate);
