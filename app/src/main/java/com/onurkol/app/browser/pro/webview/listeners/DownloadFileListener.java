@@ -46,16 +46,19 @@ public class DownloadFileListener implements DownloadListener, DownloadsSettings
             // Get Folder
             String downloadFolder=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER;
             String downloadFolderApi30Up=BrowserDefaultSettings.BROWSER_DOWNLOAD_FOLDER_API30_UP;
+            String dataDownloadFolder="";
             // Get Download Date
             String downloadDate=DateManager.getDate();
-            // Set Folder
+
+            // Check & Set Folder
             if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q)
-                request.setDestinationInExternalPublicDir(downloadFolderApi30Up,fileName);
+                dataDownloadFolder=downloadFolderApi30Up;
             else
-                request.setDestinationInExternalPublicDir(downloadFolder,fileName);
+                dataDownloadFolder=downloadFolder;
+            request.setDestinationInExternalPublicDir(dataDownloadFolder, fileName);
 
             // Create Data
-            DownloadsHelper.downloadsData=new DownloadsData(fileName, downloadFolder, downloadDate);
+            DownloadsHelper.downloadsData=new DownloadsData(fileName, dataDownloadFolder, downloadDate);
             // Enqueue
             downloadManager.enqueue(request);
             // Show Message
