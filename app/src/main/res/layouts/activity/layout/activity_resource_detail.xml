@@ -53,12 +53,26 @@
         android:textSize="15sp"
         android:text="@string/preview_text"/>
     <!-- Resource Preview Page !-->
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <!-- Loading Text !-->
+        <LinearLayout
+            android:id="@+id/loadingTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:text="@string/loading_text"/>
+        </LinearLayout>
+
         <!-- For Image !-->
         <LinearLayout
+            android:id="@+id/sourcePreviewImageLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
@@ -68,7 +82,7 @@
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"/>
         </LinearLayout>
-        <!-- For Texts !-->
+        <!-- For Text Source !-->
         <!-- Spanned Code Source EditText Layout !-->
         <ScrollView
             android:id="@+id/sourcePreviewEditTextLayout"
@@ -77,7 +91,7 @@
             <!-- for Horizontal Scroll !-->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:fillViewport="false">
                 <LinearLayout
                     android:layout_width="0dp"
@@ -86,7 +100,7 @@
                     <!-- ViewSource EditText !-->
                     <EditText
                         android:id="@+id/sourcePreviewEditText"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:paddingStart="5dp"
@@ -103,5 +117,5 @@
                 </LinearLayout>
             </HorizontalScrollView>
         </ScrollView>
-    </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

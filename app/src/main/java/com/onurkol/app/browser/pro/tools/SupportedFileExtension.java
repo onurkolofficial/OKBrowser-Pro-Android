@@ -7,13 +7,13 @@ import java.util.List;
 public class SupportedFileExtension {
 
     static String[] imageExtensionsList={
-            ".png",".jpg",".jpeg",".bmp",".gif",".webp",".raw",".psd",".ico",".tif",".tiff"
+            ".png",".jpg",".jpeg",".bmp",".gif",".webp",".raw",".psd",".ico",".tif",".tiff",".svg"
     };
 
     static String[] extensionList={
             ".mp3",".mp4",".ogg",".zip",".rar",".tar",".gz",".sh",".rgb",".iso",".rtf",".ai",".pdf",".avi",
             ".swf",".m3u",".gtar",".movie",".m1v",".txt",".json",".doc",".docx",".ppt",".pptx",".xls",".xlsx",
-            ".html",".htm",".csv",".bat",".mid",".midi",".svg",".cfg",".xml"
+            ".html",".htm",".csv",".bat",".mid",".midi",".cfg",".xml"
     };
 
     public static boolean isSupportFileExtension(String fileName){
@@ -38,5 +38,17 @@ public class SupportedFileExtension {
                 return true;
         }
         return false;
+    }
+
+    public static boolean isImageGif(String fileName){
+        // Check
+        String fileExtension=fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        return fileExtension.equals(".gif");
+    }
+
+    public static boolean isImageSvg(String fileName){
+        // Check
+        String fileExtension=fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        return fileExtension.equals(".svg");
     }
 }

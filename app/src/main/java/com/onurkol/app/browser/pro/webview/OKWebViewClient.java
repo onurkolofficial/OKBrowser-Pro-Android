@@ -30,6 +30,7 @@ import com.onurkol.app.browser.pro.tools.JavascriptManager;
 import com.onurkol.app.browser.pro.tools.ScreenManager;
 import com.onurkol.app.browser.pro.tools.SupportedFileExtension;
 import com.onurkol.app.browser.pro.windows.developer.WindowRequests;
+import com.onurkol.app.browser.pro.windows.developer.WindowResources;
 
 public class OKWebViewClient extends WebViewClient {
     Activity activity;
@@ -109,11 +110,10 @@ public class OKWebViewClient extends WebViewClient {
             updateSyncForWeb((OKWebView)view, url);
         }
         // Add Resource List
-        // Check Url
-        if(url.contains(".")){
-            if(SupportedFileExtension.isSupportFileExtension(url))
-                devManager.getResourcesDataList().add(url);
-        }
+        devManager.getResourcesDataList().add(url);
+        // Refresh Adapter
+        if(WindowResources.resourcesListAdapterStatic!=null && WindowResources.resourcesListAdapterStatic.get()!=null)
+            WindowResources.resourcesListAdapterStatic.get().notifyDataSetChanged();
 
     }
 
@@ -162,8 +162,6 @@ public class OKWebViewClient extends WebViewClient {
 
             // Update Request List
             WindowRequests.updateRequestList();
-            // Update Resource List
-            devManager.loadPageResources();
         }
         redirectLoad=true;
         // Check Javascript Manager

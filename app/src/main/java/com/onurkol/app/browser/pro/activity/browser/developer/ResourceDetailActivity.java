@@ -7,27 +7,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.onurkol.app.browser.pro.R;
 import com.onurkol.app.browser.pro.data.BrowserDataManager;
 import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
 import com.onurkol.app.browser.pro.lib.ContextManager;
 import com.onurkol.app.browser.pro.lib.browser.DeveloperManager;
+import com.onurkol.app.browser.pro.tools.ScreenManager;
 import com.onurkol.app.browser.pro.tools.SupportedFileExtension;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class ResourceDetailActivity extends AppCompatActivity {
     // Elements
@@ -36,6 +45,7 @@ public class ResourceDetailActivity extends AppCompatActivity {
     ScrollView sourcePreviewEditTextLayout;
     TextView settingName,resourceGetUrl;
     EditText sourcePreviewEditText;
+    LinearLayout loadingTextLayout, sourcePreviewImageLayout;
     // Classes
     BrowserDataManager dataManager;
     DeveloperManager devManager;
@@ -63,6 +73,22 @@ public class ResourceDetailActivity extends AppCompatActivity {
         sourcePreviewImage=findViewById(R.id.sourcePreviewImage);
         sourcePreviewEditTextLayout=findViewById(R.id.sourcePreviewEditTextLayout);
         sourcePreviewEditText=findViewById(R.id.sourcePreviewEditText);
+        loadingTextLayout=findViewById(R.id.loadingTextLayout);
+        sourcePreviewImageLayout=findViewById(R.id.sourcePreviewImageLayout);
+
+        // Variables
+        int screenWidth=ScreenManager.getScreenWidth()-10;
+        // Set Layout Params
+        LinearLayout.LayoutParams lp_Wrap=new LinearLayout.LayoutParams(screenWidth, MATCH_PARENT);
+        sourcePreviewEditText.setLayoutParams(lp_Wrap);
+        sourcePreviewEditText.setHorizontallyScrolling(false);
+
+        // Default
+        sourcePreviewImageLayout.setVisibility(View.GONE);
+        sourcePreviewEditTextLayout.setVisibility(View.GONE);
+        loadingTextLayout.setVisibility(View.VISIBLE);
+
+        sourcePreviewEditText.setText("");
 
         // Check is Created (for Theme bug)
         if(!isCreated) {
@@ -75,49 +101,74 @@ public class ResourceDetailActivity extends AppCompatActivity {
             if(dataIndex!=AppPreferenceManager.INTEGER_NULL) {
                 // Get Data
                 String resource=devManager.getResourcesDataList().get(dataIndex);
-
                 // Set Text
                 resourceGetUrl.setText(resource);
-
                 try {
                     urlData = new URL(resource);
                     // Check File Type
                     if(SupportedFileExtension.isImageFile(resource)){
-                        // Show ImageView
-                        sourcePreviewImage.setVisibility(View.VISIBLE);
-                        sourcePreviewEditTextLayout.setVisibility(View.GONE);
-
-                        Thread thread = new Thread(() -> {
-                            try  {
-                                // Get Bitmap
-                                imageBitmapData=BitmapFactory.decodeStream(urlData.openConnection().getInputStream());
-                                // Set Image Preview
-                                sourcePreviewImage.setImageBitmap(imageBitmapData);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
-                        thread.start();
+                        // Check Gif, Svg and other image type.
+                        if(SupportedFileExtension.isImageSvg(resource)){
+                            // Load SVG Image
+                            Uri svgUri=Uri.parse(resource);
+                            GlideToVectorYou.justLoadImage(this,svgUri,sourcePreviewImage);
+                            // Show Image View
+                            sourcePreviewImageLayout.setVisibility(View.VISIBLE);
+                            sourcePreviewEditTextLayout.setVisibility(View.GONE);
+                            loadingTextLayout.setVisibility(View.GONE);
+                        }
+                        else if(SupportedFileExtension.isImageGif(resource)){
+                            // Load Gif Image
+                            Glide.with(this)
+                                    .load(resource).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                                    .into(sourcePreviewImage);
+                            // Show Image View
+                            sourcePreviewImageLayout.setVisibility(View.VISIBLE);
+                            sourcePreviewEditTextLayout.setVisibility(View.GONE);
+                            loadingTextLayout.setVisibility(View.GONE);
+                        }
+                        else{
+                            // Load Bitmap Images
+                            new Thread(() -> {
+                                try {
+                                    // Get Bitmap
+                                    imageBitmapData = BitmapFactory.decodeStream(urlData.openConnection().getInputStream());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                this.runOnUiThread(() -> {
+                                    // Set Image Preview
+                                    sourcePreviewImage.setImageBitmap(imageBitmapData);
+                                    // Show Image View
+                                    sourcePreviewImageLayout.setVisibility(View.VISIBLE);
+                                    sourcePreviewEditTextLayout.setVisibility(View.GONE);
+                                    loadingTextLayout.setVisibility(View.GONE);
+                                });
+                            }).start();
+                        }
                     }
                     else{
-                        // Show TextView
-                        sourcePreviewImage.setVisibility(View.GONE);
-                        sourcePreviewEditTextLayout.setVisibility(View.VISIBLE);
-
-                        Thread thread = new Thread(() -> {
-                            try  {
+                        // Start Thread
+                        new Thread(() -> {
+                            try {
                                 // Get Input Data
                                 BufferedReader bufferData = new BufferedReader(new InputStreamReader(urlData.openStream()));
                                 while (bufferData.readLine()!=null) {
                                     inputData+=bufferData.readLine();
                                 }
-                                // Set Input Data
-                                sourcePreviewEditText.setText(inputData);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        });
-                        thread.start();
+
+                            this.runOnUiThread(() -> {
+                                // Set Input Data
+                                sourcePreviewEditText.setText(inputData);
+                                // Show Image View
+                                sourcePreviewImageLayout.setVisibility(View.GONE);
+                                sourcePreviewEditTextLayout.setVisibility(View.VISIBLE);
+                                loadingTextLayout.setVisibility(View.GONE);
+                            });
+                        }).start();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

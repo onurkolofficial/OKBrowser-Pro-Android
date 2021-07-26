@@ -13,7 +13,11 @@ import com.onurkol.app.browser.pro.lib.browser.tabs.TabBuilder;
 import com.onurkol.app.browser.pro.popups.developer.PopupResourcesDetail;
 import com.onurkol.app.browser.pro.webview.OKWebView;
 
+import java.lang.ref.WeakReference;
+
 public class WindowResources {
+
+    public static WeakReference<ResourcesListAdapter> resourcesListAdapterStatic;
 
     // Bottom Sheet Dialog Window
     public static BottomSheetDialog getWindow(){
@@ -57,6 +61,7 @@ public class WindowResources {
 
         // Create Adapter
         ResourcesListAdapter resourceListAdapter=new ResourcesListAdapter(context, resourcesListView, devManager.getResourcesDataList());
+        resourcesListAdapterStatic=new WeakReference<>(resourceListAdapter);
         // Set Adapter
         resourcesListView.setAdapter(resourceListAdapter);
         // Refresh
