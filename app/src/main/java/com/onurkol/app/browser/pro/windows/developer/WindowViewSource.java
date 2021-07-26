@@ -66,13 +66,17 @@ public class WindowViewSource {
 
         // Button Click Events
         copyBtn.setOnClickListener(view -> {
-                // Copy Data
-                ClipData clip = ClipData.newPlainText("copy_source_code", devManager.getWebSource());
-                clipboard.setPrimaryClip(clip);
-                // Show Message
-                Toast.makeText(context, context.getString(R.string.code_copied_text), Toast.LENGTH_SHORT).show();
-                // Dismiss Window
-                bottomWindow.dismiss();
+            // Get Source & Convert HTML.
+            String source=devManager.getWebSource();
+            String sourceTrim=source.substring(1, source.length()-1);
+            String escapeSourceCode=StringEscapeUtils.unescapeJava(sourceTrim);
+            // Copy Data
+            ClipData clip = ClipData.newPlainText("copy_source_code", escapeSourceCode);
+            clipboard.setPrimaryClip(clip);
+            // Show Message
+            Toast.makeText(context, context.getString(R.string.code_copied_text), Toast.LENGTH_SHORT).show();
+            // Dismiss Window
+            bottomWindow.dismiss();
         });
 
         // Loading Source Text
@@ -84,9 +88,9 @@ public class WindowViewSource {
                 // Get Source and Show Edit Text
                 String source=devManager.getWebSource();
                 // Delete first & last " character.
-                String sourceConvert=source.substring(1, source.length()-1);
+                String sourceTrim=source.substring(1, source.length()-1);
                 // Convert HTML Codes.
-                String escapeSourceCode=StringEscapeUtils.unescapeJava(sourceConvert);
+                String escapeSourceCode=StringEscapeUtils.unescapeJava(sourceTrim);
                 // Fixed '<..><..>' to '<..>\n<..>'
                 String sourceHtml=escapeSourceCode.replace("><",">\n<");
                 // Set Syntax Colors

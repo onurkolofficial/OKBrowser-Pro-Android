@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -19,11 +22,14 @@ import com.onurkol.app.browser.pro.data.browser.tabs.ClassesTabData;
 import com.onurkol.app.browser.pro.data.browser.tabs.IncognitoTabData;
 import com.onurkol.app.browser.pro.data.browser.tabs.TabData;
 import com.onurkol.app.browser.pro.lib.ContextManager;
+import com.onurkol.app.browser.pro.lib.browser.DeveloperManager;
 import com.onurkol.app.browser.pro.lib.browser.HistoryManager;
 import com.onurkol.app.browser.pro.lib.browser.tabs.TabBuilder;
 import com.onurkol.app.browser.pro.tools.DateManager;
 import com.onurkol.app.browser.pro.tools.JavascriptManager;
 import com.onurkol.app.browser.pro.tools.ScreenManager;
+import com.onurkol.app.browser.pro.tools.SupportedFileExtension;
+import com.onurkol.app.browser.pro.windows.developer.WindowRequests;
 
 public class OKWebViewClient extends WebViewClient {
     Activity activity;
@@ -32,6 +38,7 @@ public class OKWebViewClient extends WebViewClient {
     // Classes
     TabBuilder tabBuilder;
     JavascriptManager jsManager;
+    DeveloperManager devManager;
     // Elements
     EditText browserSearch;
     LinearLayout connectFailedLayout;
@@ -46,6 +53,7 @@ public class OKWebViewClient extends WebViewClient {
         // Get Classes
         tabBuilder=TabBuilder.Build();
         jsManager=JavascriptManager.getManager();
+        devManager=DeveloperManager.getManager();
         // Get Elements
         browserSearch=activity.findViewById(R.id.browserSearch);
         connectFailedLayout=rootView.findViewById(R.id.connectFailedLayout);
@@ -67,12 +75,29 @@ public class OKWebViewClient extends WebViewClient {
         }
         // Set Url
         browserSearch.setText(url);
+
+        // Requests & Resources List Clear
+        devManager.getRequestDataList().clear();
+        devManager.getResourcesDataList().clear();
+
         super.onPageStarted(view, url, favicon);
+    }
+
+    @Nullable
+    @Override
+    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        if(devManager==null)
+            devManager=DeveloperManager.getManager();
+        // Add Request List
+        devManager.getRequestDataList().add(request);
+        return super.shouldInterceptRequest(view, request);
     }
 
     @Override
     public void onLoadResource(WebView view, String url) {
         super.onLoadResource(view, url);
+        if(devManager==null)
+            devManager=DeveloperManager.getManager();
         if(activity==null){
             activity=ContextManager.getManager().getContextActivity();
             browserSearch=activity.findViewById(R.id.browserSearch);
@@ -80,11 +105,16 @@ public class OKWebViewClient extends WebViewClient {
         // Set youtube video url
         if(url.contains("watch?")) {
             browserSearch.setText(url);
-            // Check WebView Height (some bugs)
-            //checkWebViewHeight((OKWebView)view);
             // Update for Resource page
             updateSyncForWeb((OKWebView)view, url);
         }
+        // Add Resource List
+        // Check Url
+        if(url.contains(".")){
+            if(SupportedFileExtension.isSupportFileExtension(url))
+                devManager.getResourcesDataList().add(url);
+        }
+
     }
 
     @Override
@@ -129,6 +159,11 @@ public class OKWebViewClient extends WebViewClient {
                 HistoryData historyData = new HistoryData(webView.getTitle(), webView.getUrl(), DateManager.getDate());
                 HistoryManager.getInstance().newHistory(historyData);
             }
+
+            // Update Request List
+            WindowRequests.updateRequestList();
+            // Update Resource List
+            devManager.loadPageResources();
         }
         redirectLoad=true;
         // Check Javascript Manager

@@ -49,8 +49,12 @@ public class WindowCheckItem {
 
         // Button Click Events
         copyBtn.setOnClickListener(view -> {
+            // Get Source & Convert HTML.
+            String source=devManager.getItemSource();
+            String sourceTrim=source.substring(1, source.length()-1);
+            String escapeItemCode=StringEscapeUtils.unescapeJava(sourceTrim);
             // Copy Data
-            ClipData clip = ClipData.newPlainText("copy_item_source_code", devManager.getItemSource());
+            ClipData clip = ClipData.newPlainText("copy_item_source_code", escapeItemCode);
             clipboard.setPrimaryClip(clip);
             // Show Message
             Toast.makeText(context, context.getString(R.string.code_copied_text), Toast.LENGTH_SHORT).show();

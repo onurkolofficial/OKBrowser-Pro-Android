@@ -3,8 +3,11 @@ package com.onurkol.app.browser.pro.lib.browser;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
+import android.webkit.WebResourceRequest;
 
-import com.onurkol.app.browser.pro.data.browser.developer.RequestData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.onurkol.app.browser.pro.lib.browser.tabs.TabBuilder;
 import com.onurkol.app.browser.pro.tools.JavascriptManager;
 import com.onurkol.app.browser.pro.webview.OKWebView;
@@ -21,12 +24,19 @@ public class DeveloperManager {
     // Item Source
     private String CHECK_ITEM_SOURCE;
 
+    // Consts
+    public static final String KEY_REQUEST_ITEM_INDEX="REQUEST_ITEM_INDEX",
+            KEY_RESOURCE_ITEM_INDEX="RESOURCE_ITEM_INDEX";
+
     // Lists
-    ArrayList<RequestData> REQUESTS_DATA_LIST=new ArrayList<>();
+    private final ArrayList<WebResourceRequest> REQUESTS_DATA_LIST=new ArrayList<>();
+    private final ArrayList<String> RESOURCES_DATA_LIST=new ArrayList<>();
 
     // Classes
     JavascriptManager jsManager;
     TabBuilder tabBuilder;
+
+    Gson gson=new Gson();
 
     public static synchronized DeveloperManager getManager(){
         if(instance==null)
@@ -141,6 +151,49 @@ public class DeveloperManager {
                 "var colorR=Math.round(Math.random()*255);"+
                 "var colorG=Math.round(Math.random()*255);"+
                 "var colorB=Math.round(Math.random()*255);"+
-                "item.style.border='1px dotted rgb('+colorR+','+colorG+','+colorB+')';");
+                "item.style.border='1.7px dotted rgb('+colorR+','+colorG+','+colorB+')';");
+    }
+
+    // Requests
+    public ArrayList<WebResourceRequest> getRequestDataList(){
+        return REQUESTS_DATA_LIST;
+    }
+
+    // Resources
+    public ArrayList<String> getResourcesDataList(){
+        return RESOURCES_DATA_LIST;
+    }
+    public void loadPageResources(){
+        initConfig();
+        // Get Script Files
+        jsManager.exec("(function(){"+
+                "   var index=0,a=0;"+
+                "   var scriptList=new Array();"+
+                "   var elements=document.getElementsByTagName('script');"+
+                "   for(var i=0; i<elements.length; i++){" +
+                "      if(elements[i].src!=''){" +
+                "         scriptList[a]=elements[i].src;" +
+                "         a++;" +
+                "      }" +
+                "   }" +
+                "   return scriptList;"+
+                "})();", dataList -> {
+            RESOURCES_DATA_LIST.addAll(gson.fromJson(dataList,new TypeToken<ArrayList<String>>(){}.getType()));
+        });
+        // Get CSS Files
+        jsManager.exec("(function(){"+
+                "   var index=0,a=0;"+
+                "   var scriptList=new Array();"+
+                "   var elements=document.getElementsByTagName('link');"+
+                "   for(var i=0; i<elements.length; i++){" +
+                "      if(elements[i].href!=''){" +
+                "         scriptList[a]=elements[i].href;" +
+                "         a++;" +
+                "      }" +
+                "   }" +
+                "   return scriptList;"+
+                "})();", dataList -> {
+            RESOURCES_DATA_LIST.addAll(gson.fromJson(dataList,new TypeToken<ArrayList<String>>(){}.getType()));
+        });
     }
 }

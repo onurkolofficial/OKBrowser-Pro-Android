@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.browser.developer.ResourceDetailActivity">
+    <!-- Toolbar !-->
+    <include
+        layout="@layout/toolbar_settings"/>
+    <!-- Resource Detail Page !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- Resource Url !-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+            <!-- Url Text !-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:paddingStart="7dp"
+                android:textSize="15sp"
+                android:text="@string/link_text"/>
+            <!-- : !-->
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text=":"/>
+            <!-- Url !-->
+            <TextView
+                android:id="@+id/resourceGetUrl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="REQUEST_URL"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Url Text !-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="7dp"
+        android:textSize="15sp"
+        android:text="@string/preview_text"/>
+    <!-- Resource Preview Page !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- For Image !-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/sourcePreviewImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+        <!-- For Texts !-->
+        <!-- Spanned Code Source EditText Layout !-->
+        <ScrollView
+            android:id="@+id/sourcePreviewEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- for Horizontal Scroll !-->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="false">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- ViewSource EditText !-->
+                    <EditText
+                        android:id="@+id/sourcePreviewEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:scrollbars="vertical"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:gravity="top"
+                        android:focusableInTouchMode="false"
+                        android:focusable="true"
+                        android:clickable="false"
+                        android:background="@color/transparent"
+                        android:textColor="@color/white1"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

@@ -126,4 +126,14 @@
     <string name="show_details_text">Detayları Göster</string>
     <string name="code_copied_text">Kod Kopyalandı!</string>
     <string name="please_wait_text">Lütfen bekleyin!</string>
+    <string name="copied_text">Kopyalandı!</string>
+    <string name="request_detail_text">İstek Ayrıntısı</string>
+    <string name="link_text">Bağlantı</string>
+    <string name="host_text">Sağlayıcı</string>
+    <string name="queries_text">Sorgular</string>
+    <string name="paths_text">Dizinler</string>
+    <string name="scheme_text">Şema</string>
+    <string name="type_text">Tür</string>
+    <string name="preview_text">Önizleme</string>
+    <string name="resource_detail_text">Kaynak Ayrıntısı</string>
 </resources>

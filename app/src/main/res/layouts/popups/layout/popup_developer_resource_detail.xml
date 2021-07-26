@@ -10,7 +10,7 @@
         android:orientation="vertical">
         <!-- Request Url !-->
         <TextView
-            android:id="@+id/getRequestUrl"
+            android:id="@+id/getResourceUrl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -18,7 +18,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:layout_marginTop="15dp"
-            android:text="REQUEST_FULL_URL" />
+            android:text="RESOURCE_FULL_URL" />
         <!-- Buttons Layout !-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:orientation="horizontal">
             <!-- Copy !-->
             <ImageButton
-                android:id="@+id/copyRequestUrlButton"
+                android:id="@+id/copyResourceUrlButton"
                 android:layout_width="40dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
@@ -42,7 +42,7 @@
                 android:orientation="horizontal">
                 <!-- Close Button !-->
                 <Button
-                    android:id="@+id/closeRequestButton"
+                    android:id="@+id/closeResourceButton"
                     style="@style/BorderlessButtonTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:text="@string/cancel_text" />
                 <!-- Show Detail Button !-->
                 <Button
-                    android:id="@+id/showRequestButton"
+                    android:id="@+id/showResourceButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"

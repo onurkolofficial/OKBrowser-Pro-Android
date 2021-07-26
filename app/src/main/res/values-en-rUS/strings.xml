@@ -126,4 +126,14 @@
     <string name="show_details_text">Show Details</string>
     <string name="code_copied_text">Code Copied!</string>
     <string name="please_wait_text">Please wait!</string>
+    <string name="copied_text">Copied!</string>
+    <string name="request_detail_text">Request Detail</string>
+    <string name="link_text">Link</string>
+    <string name="host_text">Host</string>
+    <string name="queries_text">Queries</string>
+    <string name="paths_text">Paths</string>
+    <string name="scheme_text">Scheme</string>
+    <string name="type_text">Type</string>
+    <string name="preview_text">Preview</string>
+    <string name="resource_detail_text">Resource Detail</string>
 </resources>

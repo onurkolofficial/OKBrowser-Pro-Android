@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.onurkol.app.browser.pro.R;
 import com.onurkol.app.browser.pro.edittext.DeveloperEditText;
 import com.onurkol.app.browser.pro.lib.ContextManager;
+import com.onurkol.app.browser.pro.popups.developer.PopupSpannedCodeDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +147,7 @@ public class HTMLSyntax {
                         if(getCodeIndex<list.size())
                             getCode=list.get(getCodeIndex);
                         // Show Dialog
-                        //showSpannedCodeDetail(getCode);
-
+                        PopupSpannedCodeDetail.showPopup(getCode);
                         /*
                         // Click to replace in EditText Code. (Method 2)
                         // <BUG> Clicked span but dont updating other span index. 'start,end'

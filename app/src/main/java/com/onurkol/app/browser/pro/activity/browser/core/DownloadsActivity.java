@@ -24,7 +24,6 @@ import com.onurkol.app.browser.pro.lib.ContextManager;
 import com.onurkol.app.browser.pro.lib.browser.downloads.DownloadsManager;
 
 public class DownloadsActivity extends AppCompatActivity implements DownloadsSettings {
-
     // Elements
     ImageButton backButton;
     TextView settingName;

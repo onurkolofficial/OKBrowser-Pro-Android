@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -232,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements BrowserActionKeys
     }
 
     private void checkIntentData(Intent intent){
+        // Check Shortcut Action Menu
         if(intent.getStringExtra(ACTION_NAME)!=null) {
             if(intent.getStringExtra(ACTION_NAME).equals(KEY_ACTION_TAB_ON_START)) {
                 String intentUrl = intent.getStringExtra(ACTION_VALUE);
@@ -270,6 +272,14 @@ public class MainActivity extends AppCompatActivity implements BrowserActionKeys
                 tabBuilder.saveTabListPreference(new ArrayList<>());
                 // Re-sync tabs
                 startTabsSync();
+            }
+        }
+        else{
+            // Check 'Open As' URL
+            Uri data = intent.getData();
+            if(data != null){
+                String intentUrl = data.toString();
+                ProcessDelay.Delay(() -> activityNewTabHandler(intentUrl),320);
             }
         }
     }
