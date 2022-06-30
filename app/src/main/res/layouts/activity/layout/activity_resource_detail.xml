@@ -4,11 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/resourcesLayoutMain"
     android:orientation="vertical"
-    tools:context=".activity.browser.developer.ResourceDetailActivity">
-    <!-- Toolbar !-->
-    <include
-        layout="@layout/toolbar_settings"/>
+    tools:context=".activity.browser.SettingsActivity">
+    <!-- Toolbars Layout !-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:elevation="0dp">
+        <!-- Toolbar Settings !-->
+        <include
+            layout="@layout/toolbar_settings" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <!-- Content !-->
     <!-- Resource Detail Page !-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,25 +46,38 @@
                 android:text=":"/>
             <!-- Url !-->
             <TextView
-                android:id="@+id/resourceGetUrl"
+                android:id="@+id/resourceUrlText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
-                android:text="REQUEST_URL"/>
+                android:text="RESOURCE_URL"/>
         </LinearLayout>
     </LinearLayout>
-    <!-- Url Text !-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="7dp"
-        android:textSize="15sp"
-        android:text="@string/preview_text"/>
     <!-- Resource Preview Page !-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!-- Image Action Toolbar !-->
+        <LinearLayout
+            android:id="@+id/sourceImageActionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:gravity="end"
+            android:layout_marginEnd="10dp">
+            <!-- Download Button for Image Button !-->
+            <ImageButton
+                android:id="@+id/sourceDownloadButton"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/download_text"
+                android:tooltipText="@string/download_text"
+                tools:targetApi="o"
+                app:srcCompat="@drawable/ic_icon_download_circle"/>
+        </LinearLayout>
         <!-- Loading Text !-->
         <LinearLayout
             android:id="@+id/loadingTextLayout"
@@ -69,23 +91,22 @@
                 android:textAlignment="center"
                 android:text="@string/loading_text"/>
         </LinearLayout>
-
         <!-- For Image !-->
         <LinearLayout
-            android:id="@+id/sourcePreviewImageLayout"
+            android:id="@+id/sourceImageLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
             <ImageView
-                android:id="@+id/sourcePreviewImage"
+                android:id="@+id/sourceImageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="260dp"
                 android:scaleType="fitCenter"/>
         </LinearLayout>
         <!-- For Text Source !-->
         <!-- Spanned Code Source EditText Layout !-->
         <ScrollView
-            android:id="@+id/sourcePreviewEditTextLayout"
+            android:id="@+id/sourceTextLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <!-- for Horizontal Scroll !-->
@@ -99,7 +120,7 @@
                     android:orientation="vertical">
                     <!-- ViewSource EditText !-->
                     <EditText
-                        android:id="@+id/sourcePreviewEditText"
+                        android:id="@+id/sourceEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"

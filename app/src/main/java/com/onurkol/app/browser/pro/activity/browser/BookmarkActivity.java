@@ -1,117 +1,97 @@
 package com.onurkol.app.browser.pro.activity.browser;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.onurkol.app.browser.pro.R;
-import com.onurkol.app.browser.pro.activity.browser.installer.InstallerActivity;
+import com.onurkol.app.browser.pro.activity.installer.InstallerActivity;
 import com.onurkol.app.browser.pro.adapters.browser.BookmarkListAdapter;
-import com.onurkol.app.browser.pro.data.BrowserDataManager;
-import com.onurkol.app.browser.pro.interfaces.browser.bookmarks.BookmarkSettings;
-import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
-import com.onurkol.app.browser.pro.lib.ContextManager;
-import com.onurkol.app.browser.pro.lib.browser.BookmarkManager;
+import com.onurkol.app.browser.pro.controller.ContextController;
+import com.onurkol.app.browser.pro.controller.PreferenceController;
+import com.onurkol.app.browser.pro.controller.browser.BookmarkController;
+import com.onurkol.app.browser.pro.controller.browser.BrowserDataInitController;
+import com.onurkol.app.browser.pro.controller.settings.DayNightModeController;
+import com.onurkol.app.browser.pro.controller.settings.LanguageController;
+import com.onurkol.app.browser.pro.interfaces.BrowserDataInterface;
+import com.onurkol.app.browser.pro.libs.ActivityActionAnimator;
 
-public class BookmarkActivity extends AppCompatActivity implements BookmarkSettings {
+public class BookmarkActivity extends AppCompatActivity implements BrowserDataInterface {
+    BrowserDataInitController browserDataController;
+    PreferenceController preferenceController;
+    DayNightModeController dayNightController;
+    LanguageController languageController;
 
-    // Elements
+    BookmarkController bookmarkController;
+
+    public static boolean isCreated;
+
     ImageButton backButton;
     TextView settingName;
     ListView bookmarkListView;
-    LinearLayout noBookmarkLayout;
-    // Classes
-    BrowserDataManager dataManager;
-    AppPreferenceManager prefManager;
-    // Intents
-    Intent installerIntent;
-    // Variables
-    public static boolean isCreated=false,isCreatedView=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Set Current Activity Context
-        ContextManager.Build(this);
-        // Get Classes
-        dataManager=new BrowserDataManager();
-        prefManager= AppPreferenceManager.getInstance();
-        // Create View
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookmark);
-        // Get Intents
-        installerIntent=new Intent(this, InstallerActivity.class);
+        ContextController.setContext(this);
 
-        // Check Installer Activity
-        if(dataManager.startInstallerActivity){
-            // Start Welcome Activity
-            startActivity(installerIntent);
-            // Finish Current Activity
+        preferenceController=PreferenceController.getController();
+        browserDataController=BrowserDataInitController.getController();
+        browserDataController.init();
+
+        bookmarkController=BookmarkController.getController();
+        dayNightController=DayNightModeController.getController();
+        languageController=LanguageController.getController();
+
+        if(!browserDataController.isInstallerCompleted()){
+            startActivity(new Intent(this, InstallerActivity.class));
             finish();
         }
-        // Get Elements
-        backButton=findViewById(R.id.backSettingsButton);
-        settingName=findViewById(R.id.settingName);
-        bookmarkListView=findViewById(R.id.bookmarkListView);
-        noBookmarkLayout=findViewById(R.id.noBookmarkLayout);
 
-        // Set Toolbar Title
+        // Set Theme|Language
+        dayNightController.setDayNightMode(this, preferenceController.getInt(KEY_DAY_NIGHT_MODE));
+        languageController.setLanguage(this, preferenceController.getInt(KEY_LANGUAGE));
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bookmark);
+
+        backButton=findViewById(R.id.settingsBackButton);
+        settingName=findViewById(R.id.settingsTitle);
+        bookmarkListView=findViewById(R.id.bookmarkListView);
+
         settingName.setText(getString(R.string.bookmarks_text));
 
-        // Button Click Events
-        backButton.setOnClickListener(view -> finish());
+        backButton.setOnClickListener(view -> ActivityActionAnimator.finish(this));
 
-        // Check is Created (for Theme bug)
-        if(!isCreated) {
-            // Set Adapter
-            bookmarkListView.setAdapter(new BookmarkListAdapter(this, bookmarkListView, BROWSER_BOOKMARK_LIST));
+        // Set List Adapter
+        bookmarkListView.setAdapter(new BookmarkListAdapter(this, bookmarkListView, BOOKMARK_LIST));
+        bookmarkController.syncBookmarkData();
 
-            // Get Saved Data
-            BookmarkManager.getInstance().syncSavedBookmarkData();
-
-            if(BROWSER_BOOKMARK_LIST.size()<=0){
-                // Show No Bookmark Layout
-                noBookmarkLayout.setVisibility(View.VISIBLE);
-                bookmarkListView.setVisibility(View.GONE);
-            }
-            else{
-                // Hide No Bookmark Layout
-                noBookmarkLayout.setVisibility(View.GONE);
-                bookmarkListView.setVisibility(View.VISIBLE);
-            }
-        }
-
-        isCreated = true;
+        updateView(this);
+        isCreated=true;
     }
 
-    @Nullable
+    public static void updateView(Context context){
+        if(BookmarkController.getController().getBookmarkList().size()>0)
+            ((Activity)context).findViewById(R.id.noBookmarkLayout).setVisibility(View.GONE);
+        else
+            ((Activity)context).findViewById(R.id.noBookmarkLayout).setVisibility(View.VISIBLE);
+    }
+
     @Override
-    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        // Init Browser Data ( Applying View Settings )
-        if(!dataManager.startInstallerActivity){
-            dataManager.initBrowserPreferenceSettings();
-            /*
-            if(!isCreatedView) {
-                //...
-            }
-             */
-            isCreatedView=true;
-        }
-        return super.onCreateView(name, context, attrs);
+    public void onBackPressed() {
+        ActivityActionAnimator.finish(this);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         isCreated=false;
+        super.onDestroy();
     }
 }

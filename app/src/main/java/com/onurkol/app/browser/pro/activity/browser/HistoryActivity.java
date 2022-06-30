@@ -1,138 +1,114 @@
 package com.onurkol.app.browser.pro.activity.browser;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.onurkol.app.browser.pro.R;
-import com.onurkol.app.browser.pro.activity.browser.installer.InstallerActivity;
+import com.onurkol.app.browser.pro.activity.installer.InstallerActivity;
 import com.onurkol.app.browser.pro.adapters.browser.HistoryListAdapter;
-import com.onurkol.app.browser.pro.data.BrowserDataManager;
-import com.onurkol.app.browser.pro.interfaces.browser.history.HistorySettings;
-import com.onurkol.app.browser.pro.lib.AppPreferenceManager;
-import com.onurkol.app.browser.pro.lib.ContextManager;
-import com.onurkol.app.browser.pro.lib.browser.HistoryManager;
+import com.onurkol.app.browser.pro.controller.ContextController;
+import com.onurkol.app.browser.pro.controller.PreferenceController;
+import com.onurkol.app.browser.pro.controller.browser.BrowserDataInitController;
+import com.onurkol.app.browser.pro.controller.browser.HistoryController;
+import com.onurkol.app.browser.pro.controller.settings.DayNightModeController;
+import com.onurkol.app.browser.pro.controller.settings.LanguageController;
+import com.onurkol.app.browser.pro.interfaces.BrowserDataInterface;
+import com.onurkol.app.browser.pro.libs.ActivityActionAnimator;
 
-public class HistoryActivity extends AppCompatActivity implements HistorySettings {
+public class HistoryActivity extends AppCompatActivity implements BrowserDataInterface {
+    BrowserDataInitController browserDataController;
+    PreferenceController preferenceController;
+    DayNightModeController dayNightController;
+    LanguageController languageController;
 
-    // Elements
+    HistoryController historyController;
+
+    public static boolean isCreated;
+
     ImageButton backButton;
     TextView settingName;
-    Button deleteAllHistory;
     ListView historyListView;
-    LinearLayout noHistoryLayout;
-    // Classes
-    BrowserDataManager dataManager;
-    AppPreferenceManager prefManager;
-    // Intents
-    Intent installerIntent;
-    // Variables
-    public static boolean isCreated=false,isCreatedView=false;
+    Button deleteAllHistory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Set Current Activity Context
-        ContextManager.Build(this);
-        // Get Classes
-        dataManager=new BrowserDataManager();
-        prefManager=AppPreferenceManager.getInstance();
-        // Create View
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-        // Get Intents
-        installerIntent=new Intent(this, InstallerActivity.class);
+        ContextController.setContext(this);
 
-        // Check Installer Activity
-        if(dataManager.startInstallerActivity){
-            // Start Welcome Activity
-            startActivity(installerIntent);
-            // Finish Current Activity
+        preferenceController=PreferenceController.getController();
+        browserDataController=BrowserDataInitController.getController();
+        browserDataController.init();
+
+        historyController=HistoryController.getController();
+        dayNightController=DayNightModeController.getController();
+        languageController=LanguageController.getController();
+
+        if(!browserDataController.isInstallerCompleted()){
+            startActivity(new Intent(this, InstallerActivity.class));
             finish();
         }
-        // Get Elements
-        backButton=findViewById(R.id.backSettingsButton);
-        settingName=findViewById(R.id.settingName);
-        deleteAllHistory=findViewById(R.id.deleteAllHistory);
-        historyListView=findViewById(R.id.historyListRecyclerView);
-        noHistoryLayout=findViewById(R.id.noHistoryLayout);
 
-        // Set Toolbar Title
+        // Set Theme|Language
+        dayNightController.setDayNightMode(this, preferenceController.getInt(KEY_DAY_NIGHT_MODE));
+        languageController.setLanguage(this, preferenceController.getInt(KEY_LANGUAGE));
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history);
+
+        backButton=findViewById(R.id.settingsBackButton);
+        settingName=findViewById(R.id.settingsTitle);
+        historyListView=findViewById(R.id.historyListView);
+        deleteAllHistory=findViewById(R.id.deleteAllHistory);
+
         settingName.setText(getString(R.string.history_text));
 
-        // Button Click Events
-        backButton.setOnClickListener(view -> finish());
+        backButton.setOnClickListener(view -> ActivityActionAnimator.finish(this));
         deleteAllHistory.setOnClickListener(view -> {
             // Dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
             builder.setMessage(getString(R.string.question_delete_all_histories_text))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(getString(R.string.yes_text),(dialog, which) -> {
-                        // Clear Arrays
-                        BROWSER_HISTORY_LIST.clear();
-                        // Save Preferences
-                        HistoryManager.getInstance().saveHistoryListPreference(BROWSER_HISTORY_LIST);
-                        // Remove Views
+                        historyController.deleteAllHistory();
                         historyListView.invalidateViews();
-                        // Show No History Layout
-                        noHistoryLayout.setVisibility(View.VISIBLE);
-                        historyListView.setVisibility(View.GONE);
+                        updateView(this);
                     })
                     .setNegativeButton(getString(R.string.no_text), null)
                     .show();
         });
 
-        // Check is Created (for Theme bug)
-        if(!isCreated) {
-            // Set Adapter
-            historyListView.setAdapter(new HistoryListAdapter(this, historyListView, BROWSER_HISTORY_LIST));
+        // Set List Adapter
+        historyListView.setAdapter(new HistoryListAdapter(this, historyListView, HISTORY_LIST));
+        historyController.syncHistoryData();
 
-            // Get Saved Data
-            HistoryManager.getInstance().syncSavedHistoryData();
-
-            if(BROWSER_HISTORY_LIST.size()<=0){
-                // Show No History Layout
-                noHistoryLayout.setVisibility(View.VISIBLE);
-                historyListView.setVisibility(View.GONE);
-            }
-            else{
-                // Hide No History Layout
-                noHistoryLayout.setVisibility(View.GONE);
-                historyListView.setVisibility(View.VISIBLE);
-            }
-        }
-        isCreated = true;
+        updateView(this);
+        isCreated=true;
     }
 
-    @Nullable
+    public static void updateView(Context context){
+        if(HistoryController.getController().getHistoryList().size()>0)
+            ((Activity)context).findViewById(R.id.noHistoryLayout).setVisibility(View.GONE);
+        else
+            ((Activity)context).findViewById(R.id.noHistoryLayout).setVisibility(View.VISIBLE);
+    }
+
     @Override
-    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        // Init Browser Data ( Applying View Settings )
-        if(!dataManager.startInstallerActivity){
-            dataManager.initBrowserPreferenceSettings();
-            /*
-            if(!isCreatedView) {
-                //...
-            }
-             */
-            isCreatedView=true;
-        }
-        return super.onCreateView(name, context, attrs);
+    public void onBackPressed() {
+        ActivityActionAnimator.finish(this);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         isCreated=false;
+        super.onDestroy();
     }
 }

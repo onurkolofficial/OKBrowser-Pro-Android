@@ -5,17 +5,17 @@
         android:title="@string/version_text"
         app:iconSpaceReserved="false">
         <Preference
-            android:key="pref_app_package"
+            android:key="preferenceAppPackage"
             android:summary="APP_PACKAGE"
             android:title="@string/app_package_text"
             app:iconSpaceReserved="false"/>
         <Preference
-            android:key="pref_app_version"
+            android:key="preferenceAppVersion"
             android:summary="APP_VERSION"
             android:title="@string/app_version_text"
             app:iconSpaceReserved="false"/>
         <Preference
-            android:key="pref_android_version"
+            android:key="preferenceAndroidVersion"
             android:summary="ANDROID_VERSION"
             android:title="@string/android_version_text"
             app:iconSpaceReserved="false"/>
@@ -24,12 +24,12 @@
         android:title="@string/contact_text"
         app:iconSpaceReserved="false">
         <Preference
-            android:key="pref_developer_name"
+            android:key="preferenceDeveloperName"
             android:summary="Onur KOL"
             android:title="@string/developer_text"
             app:iconSpaceReserved="false"/>
         <Preference
-            android:key="pref_dev_web_page"
+            android:key="preferenceDeveloperWebPage"
             android:summary="@string/developer_web_page_summary"
             android:title="@string/developer_web_page_text"
             app:iconSpaceReserved="false"/>

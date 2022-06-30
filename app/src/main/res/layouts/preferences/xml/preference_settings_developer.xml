@@ -3,36 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Enable Developer Settings !-->
     <SwitchPreference
-        android:key="pref_enable_developer"
+        android:key="developerModePreference"
         android:summary="@string/enable_developer_options_summary"
         android:title="@string/enable_developer_options_text"
-        app:icon="@drawable/ic_baseline_developer_mode_24"/>
+        app:icon="@drawable/ic_icon_dev_phone_circle"/>
     <!-- View Source Settings !-->
     <PreferenceCategory
         android:title="@string/view_source_text"
         app:iconSpaceReserved="false">
         <!-- Line Numbers !-->
         <CheckBoxPreference
-            android:key="pref_enable_line_number"
+            android:key="developerVSLineNumbersPreference"
             android:summary="@string/line_numbers_summary"
             android:title="@string/line_numbers_text"
-            app:icon="@drawable/ic_baseline_format_list_numbered_24"/>
+            app:icon="@drawable/ic_icon_form_numbered_circle"/>
         <!-- Line Wrap !-->
         <CheckBoxPreference
-            android:key="pref_enable_line_wrap"
+            android:key="developerVSLineWrapPreference"
             android:summary="@string/line_wrap_summary"
             android:title="@string/line_wrap_text"
-            app:icon="@drawable/ic_baseline_wrap_text_24"/>
+            app:icon="@drawable/ic_icon_text_wrap_circle"/>
     </PreferenceCategory>
     <!-- View Source Settings !-->
     <PreferenceCategory
-        android:title="@string/check_item_text"
+        android:title="@string/general_text"
         app:iconSpaceReserved="false">
         <!-- Line Numbers !-->
         <CheckBoxPreference
-            android:key="pref_enable_stop_refresh"
+            android:key="developerGNRefreshPreference"
             android:summary="@string/stop_page_refresh_summary"
             android:title="@string/stop_page_refresh_text"
-            app:icon="@drawable/ic_baseline_sync_disabled_24"/>
+            app:icon="@drawable/ic_icon_sync_disabled_circle"/>
     </PreferenceCategory>
 </PreferenceScreen>

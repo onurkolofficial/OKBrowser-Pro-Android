@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/popupMenuBackground"
+    android:orientation="vertical">
+    <!-- Menu Buttons Layout !-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Javascript Console Layout Button !-->
+            <LinearLayout
+                android:id="@+id/javascriptConsoleLayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/javascript_console_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_icon_console_circle" />
+            </LinearLayout>
+            <!-- View Source Layout Button !-->
+            <LinearLayout
+                android:id="@+id/viewSourceLayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/view_source_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_icon_code_circle" />
+            </LinearLayout>
+            <!-- Requests Layout Button !-->
+            <LinearLayout
+                android:id="@+id/requestsLayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/requests_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_icon_http_circle" />
+            </LinearLayout>
+            <!-- Resources Layout Button !-->
+            <LinearLayout
+                android:id="@+id/resourcesLayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:clickable="true"
+                android:focusable="true">
+                <!-- Title !-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/resources_text"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_icon_folder_cirlce" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

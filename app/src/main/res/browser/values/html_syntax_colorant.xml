@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- HTML Syntax Colors !-->
+    <!-- for 'java/libs/developer/HTMLSyntaxColorant.java' tool. !-->
+    <color name="color_html_elements">#1671BF</color>
+    <color name="color_html_elementParams">#1398D6</color>
+    <color name="color_numbers">#DD47B3</color>
+    <color name="background_minified_codes">#807F7F7F</color>
+    <!-- Javascript Console Log Color !-->
+    <color name="console_log_color">@android:color/holo_blue_dark</color>
+</resources>

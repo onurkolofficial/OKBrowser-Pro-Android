@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="55dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <!-- Divider !-->
@@ -9,67 +10,46 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
-    <!-- Check Item Layout Button !-->
+    <!-- Menu Side Icon Group !-->
     <LinearLayout
-        android:id="@+id/checkItemLayoutButton"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:clickable="true"
-        android:focusable="true">
-        <!-- Title !-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/check_item_text"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_edit_note_24" />
-    </LinearLayout>
-    <!-- Bypass Item Layout Button !-->
-    <LinearLayout
-        android:id="@+id/bypassItemLayoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:clickable="true"
-        android:focusable="true">
-        <!-- Title !-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/bypass_item_text"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_visibility_off_24" />
-    </LinearLayout>
-    <!-- Flexbox Layout Button !-->
-    <LinearLayout
-        android:id="@+id/flexboxLayoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:clickable="true"
-        android:focusable="true">
-        <!-- Title !-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/flexbox_text"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_check_box_outline_blank_24" />
+        android:layout_height="wrap_content"
+        android:gravity="end">
+        <!-- Check Item Button !-->
+        <ImageButton
+            android:id="@+id/checkItemButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/check_item_text"
+            android:tooltipText="@string/check_item_text"
+            tools:targetApi="o"
+            app:srcCompat="@drawable/ic_icon_edit_circle" />
+        <!-- Bypass Item Button !-->
+        <ImageButton
+            android:id="@+id/bypassItemButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/bypass_item_text"
+            android:tooltipText="@string/bypass_item_text"
+            tools:targetApi="o"
+            app:srcCompat="@drawable/ic_icon_remove_item_circle" />
+        <!-- Flexbox Button !-->
+        <ImageButton
+            android:id="@+id/flexboxButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:padding="12dp"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/flexbox_text"
+            android:tooltipText="@string/flexbox_text"
+            tools:targetApi="o"
+            app:srcCompat="@drawable/ic_icon_border_dash_circle" />
     </LinearLayout>
 </LinearLayout>
