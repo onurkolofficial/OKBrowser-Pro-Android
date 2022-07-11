@@ -640,7 +640,8 @@ public class TabFragment extends Fragment implements BrowserDataInterface, TabIn
                     !(TAB_IS_INCOGNITO && TAB_DATA.getUrl().equals(NEW_INCOGNITO_TAB_URL))){
                 if(TAB_ON_ERROR)
                     setUIStateSearchBreak();
-                okWebView.reload();
+                if(!preferenceController.getBoolean(KEY_DEVELOPER_GN_REFRESH))
+                    okWebView.reload();
             }
         }
         browserSwipeRefresh.setRefreshing(false);

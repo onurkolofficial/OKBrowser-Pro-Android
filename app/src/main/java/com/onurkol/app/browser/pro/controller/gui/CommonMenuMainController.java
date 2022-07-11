@@ -123,7 +123,8 @@ public class CommonMenuMainController implements BrowserDataInterface {
         menuRefreshButton.setOnClickListener(v -> {
             if(tabController.getCurrentTab().isTabError())
                 tabController.getCurrentTab().setUIStateSearchBreak();
-            tabController.getCurrentTab().getWebView().reload();
+            if(!preferenceController.getBoolean(KEY_DEVELOPER_GN_REFRESH))
+                tabController.getCurrentTab().getWebView().reload();
             dismissDialog(popupWindow, bottomSheetDialog);
         });
         desktopModeLayoutCheckbox.setOnClickListener(v -> {

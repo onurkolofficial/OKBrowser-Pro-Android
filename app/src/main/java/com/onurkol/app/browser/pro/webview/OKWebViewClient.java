@@ -164,7 +164,8 @@ public class OKWebViewClient extends WebViewClient implements BrowserDataInterfa
 
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-        tabController.getCurrentTab().setUIStateError();
+        if(error.getErrorCode()==ERROR_CONNECT)
+            tabController.getCurrentTab().setUIStateError();
         super.onReceivedError(view, request, error);
     }
 

@@ -25,6 +25,7 @@
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_sync_disabled_circle.xml" value="0.1715" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_text_wrap.xml" value="0.1715" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_text_wrap_circle.xml" value="0.1715" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/layout_select_border_corner.xml" value="0.176" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layout/activity_request_detail.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layout/activity_resource_detail.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layout/activity_settings_developer.xml" value="0.2" />
@@ -58,6 +59,7 @@
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/bottomsheets/layout/testlayout.xml" value="0.25" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/fragments/layout/fragment_tab.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout-land/item_web_collection_data.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout-sw600dp/item_checkbox_data.xml" value="0.15" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout/item_bookmark_data.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout/item_checkbox_data.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout/item_checkbox_icon_data.xml" value="0.2" />
@@ -83,12 +85,23 @@
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/preferences/xml/preference_settings_home.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/preferences/xml/preference_settings_web.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_complete.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_daynight_mode.xml" value="0.19010416666666666" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_gui_mode.xml" value="0.19010416666666666" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_language.xml" value="0.19010416666666666" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_permissions.xml" value="0.19010416666666666" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_installer_welcome.xml" value="0.22083333333333333" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-land/screen_tab_new.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp-land/screen_installer_welcome.xml" value="0.11953125" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp/screen_installer_welcome.xml" value="0.15" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_developer_dialog_request.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_developer_dialog_resource.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_developer_dialog_show_html.xml" value="0.25" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_dialog_show_html.xml" value="0.1641025641025641" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_complete.xml" value="0.2" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_daynight_mode.xml" value="0.2" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_gui_mode.xml" value="0.2" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_language.xml" value="0.2" />
+        <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_permissions.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_installer_welcome.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_tab_list.xml" value="0.2" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_tab_new.xml" value="0.2" />
