@@ -219,13 +219,14 @@ public class TabFragment extends Fragment implements BrowserDataInterface, TabIn
 
     @Override
     public void onPause() {
-        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
-        tabController.getCurrentTab().getWebView().onPause();
+        super.onPause(); //To change body of overridden methods use File | Settings | File Templates.
+        if(tabController.getCurrentTab()!=null && tabController.getCurrentTab().getWebView()!=null)
+            tabController.getCurrentTab().getWebView().onPause();
     }
 
     @Override
     public void onStop() {
-        super.onStop();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onStop(); //To change body of overridden methods use File | Settings | File Templates.
         if (inCustomView()) {
             hideCustomView();
         }
@@ -586,7 +587,6 @@ public class TabFragment extends Fragment implements BrowserDataInterface, TabIn
         return TAB_ON_ERROR;
     }
 
-    @NonNull
     @Override
     public OKWebView getWebView(){
         return okWebView;

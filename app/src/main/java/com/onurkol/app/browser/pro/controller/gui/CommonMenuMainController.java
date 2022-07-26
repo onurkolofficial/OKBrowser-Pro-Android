@@ -100,6 +100,9 @@ public class CommonMenuMainController implements BrowserDataInterface {
         });
         newTabLayoutButton.setOnClickListener(v -> {
             MainActivity.isNewTab=true;
+            // for Tablet
+            if(MainActivity.isTabletView)
+                ((MainActivity)context).onTabUpdateWithTablet();
             // Re-setting tab count for settings changed.
             TabCounterController.setMenuTabCounterButton(context, tabController.getTabList().size());
             dismissDialog(popupWindow, bottomSheetDialog);
@@ -112,6 +115,9 @@ public class CommonMenuMainController implements BrowserDataInterface {
         });
         newIncognitoTabLayoutButton.setOnClickListener(v -> {
             MainActivity.isNewIncognitoTab=true;
+            // for Tablet
+            if(MainActivity.isTabletView)
+                ((MainActivity)context).onTabUpdateWithTablet();
             // Re-setting tab count for settings changed.
             TabCounterController.setMenuTabCounterButton(context, tabController.getIncognitoTabList().size());
             dismissDialog(popupWindow, bottomSheetDialog);

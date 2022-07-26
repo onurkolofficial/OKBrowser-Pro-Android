@@ -5,6 +5,8 @@ import static com.onurkol.app.browser.pro.libs.ActivityActionAnimator.finishAndS
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Activity;
@@ -36,6 +38,7 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.onurkol.app.browser.pro.R;
 import com.onurkol.app.browser.pro.activity.browser.TabListActivity;
 import com.onurkol.app.browser.pro.activity.installer.InstallerActivity;
+import com.onurkol.app.browser.pro.adapters.tabs.TabListTabletAdapter;
 import com.onurkol.app.browser.pro.bottomsheets.menu.toolbars.BottomSheetMenuToolbarDense;
 import com.onurkol.app.browser.pro.bottomsheets.menu.toolbars.BottomSheetMenuToolbarNoTab;
 import com.onurkol.app.browser.pro.controller.ConnectionController;
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
 
     // Activity Static Variables
     public static boolean isCreated=false,
+            isTabletView=false,
             isClearAllData=false,
             isSettingChanged=false,
             isNewTab=false,
@@ -109,9 +113,13 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
     ImageButton browserToolbarTabCountButton, browserToolbarMenuButton,
             browserToolbarHomeButton, browserToolbarForwardButton, browserToolbarBackButton,
             noTabToolbarNewTabButton, noTabToolbarNewIncognitoTabButton, noTabToolbarMenuButton,
-            findCloseButton, findNextButton, findBackButton;
+            findCloseButton, findNextButton, findBackButton,
+            browserNewTabButtonForTablet, browserNewIncognitoTabButtonForTablet;
     ProgressBar browserToolbarProgressbar;
     SearchView findSearchView;
+
+    // for Tablet
+    RecyclerView tabListRecyclerView, incognitoTabListRecyclerView;
 
     String findQueries;
 
@@ -198,6 +206,11 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
         browserToolbarTabCountButton=findViewById(R.id.browserToolbarTabCountButton);
         browserToolbarMenuButton=findViewById(R.id.browserToolbarMenuButton);
         browserToolbarProgressbar=findViewById(R.id.browserToolbarProgressbar);
+        // for Tablet
+        tabListRecyclerView=findViewById(R.id.tabListRecyclerView);
+        incognitoTabListRecyclerView=findViewById(R.id.incognitoTabListRecyclerView);
+        browserNewTabButtonForTablet=findViewById(R.id.browserNewTabButtonForTablet);
+        browserNewIncognitoTabButtonForTablet=findViewById(R.id.browserNewIncognitoTabButtonForTablet);
         /////
         toolbarNoTabView=findViewById(R.id.toolbarNoTabView);
         toolbarFindView=findViewById(R.id.toolbarFindView);
@@ -272,6 +285,38 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
             return false;
         });
 
+        // for Tablets
+        // Tab List
+        TabListTabletAdapter tabListTabletAdapter;
+        if(tabListRecyclerView!=null){
+            isTabletView=true;
+            // Set Layout Managers (for Horizontal List)
+            // Tabs
+            LinearLayoutManager horizontalLayoutManagerT
+                    = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            tabListRecyclerView.setLayoutManager(horizontalLayoutManagerT);
+            // Incognito Tabs
+            LinearLayoutManager horizontalLayoutManagerIT
+                    = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            incognitoTabListRecyclerView.setLayoutManager(horizontalLayoutManagerIT);
+            // Tab List Adapter
+            tabListTabletAdapter = new TabListTabletAdapter(this, tabController.getTabList());
+            tabListRecyclerView.setAdapter(tabListTabletAdapter);
+            // Incognito Tab List Adapter
+            tabListTabletAdapter = new TabListTabletAdapter(this, tabController.getIncognitoTabList());
+            incognitoTabListRecyclerView.setAdapter(tabListTabletAdapter);
+
+            // Click Events
+            browserNewTabButtonForTablet.setOnClickListener(view -> {
+                isNewTab=true;
+                onResume();
+            });
+            browserNewIncognitoTabButtonForTablet.setOnClickListener(view -> {
+                isNewIncognitoTab=true;
+                onResume();
+            });
+        }
+
         setUIStateNewTab(false);
         checkInternetConnection();
         tabController.onStart();
@@ -290,6 +335,17 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
         }
         else if(guiController.isSimpleMode()){
             toolbarSimpleView.setVisibility(View.VISIBLE);
+            // for Tablet
+            if(isTabletView){
+                if(isIncognito){
+                    tabListRecyclerView.setVisibility(View.GONE);
+                    incognitoTabListRecyclerView.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tabListRecyclerView.setVisibility(View.VISIBLE);
+                    incognitoTabListRecyclerView.setVisibility(View.GONE);
+                }
+            }
         }
         // Check Incognito Icon
         if(isIncognito)
@@ -410,11 +466,12 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
         // Tab operation order: 'close, create, change'
         // Close Tab
         if(isTabClosed || isTabClosedIncognito || isAllTabsClosed){
-            if(isTabClosed) {
-                tabController.onRestoreTabData(false);
-                for (int indexValue : tabCloseIndexList)
-                    tabController.closeTab(indexValue, false);
-
+            if(isTabClosed){
+                if(!isTabletView){
+                    tabController.onRestoreTabData(false);
+                    for (int indexValue : tabCloseIndexList)
+                        tabController.closeTab(indexValue, false);
+                }
                 if(tabController.getTabList().size()<=0){
                     if(tabController.getIncognitoTabList().size()<=0)
                         isAllTabsClosed=true;
@@ -428,13 +485,16 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
                     setUIStateNewTab(false);
                 }
                 // Save completed process data. (for GridView data onchange.)
-                tabController.onBackupPointTabData(false);
+                if(!isTabletView)
+                    tabController.onBackupPointTabData(false);
             }
+            // Only PHONE : Incognito Tab Close
             if(isTabClosedIncognito){
-                tabController.onRestoreTabData(true);
-                for (int indexValue : tabCloseIncognitoIndexList)
-                    tabController.closeTab(indexValue, true);
-
+                if(!isTabletView) {
+                    tabController.onRestoreTabData(true);
+                    for (int indexValue : tabCloseIncognitoIndexList)
+                        tabController.closeTab(indexValue, true);
+                }
                 if(tabController.getIncognitoTabList().size()<=0){
                     if(tabController.getTabList().size()<=0)
                         isAllTabsClosed=true;
@@ -448,7 +508,8 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
                     setUIStateNewTab(true);
                 }
                 // Save completed process data. (for GridView data onchange.)
-                tabController.onBackupPointTabData(true);
+                if(!isTabletView)
+                    tabController.onBackupPointTabData(true);
             }
             if(isAllTabsClosed){
                 tabController.closeAllTabs();
@@ -467,12 +528,20 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
                     tabController.newTab(newTabUrl);
                 else
                     tabController.newTab();
+                // Update Tablet View
+                if(isTabletView)
+                    tabListRecyclerView.setAdapter(
+                            new TabListTabletAdapter(this, tabController.getTabList()));
             }
             if(isNewIncognitoTab){
                 if(newIncognitoTabUrl!=null)
                     tabController.newIncognitoTab(newIncognitoTabUrl);
                 else
                     tabController.newIncognitoTab();
+                // Update Tablet View
+                if(isTabletView)
+                    incognitoTabListRecyclerView.setAdapter(
+                            new TabListTabletAdapter(this, tabController.getIncognitoTabList()));
             }
             setUIStateNewTab(isNewIncognitoTab);
             isNewTab=false;
@@ -489,6 +558,10 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
                     browserToolbarSearchInput.setText(tabController.getTabData(tabChangeIndex).getUrl());
                 else
                     browserToolbarSearchInput.setText("");
+                // Update Tablet View
+                if(isTabletView)
+                    tabListRecyclerView.setAdapter(
+                            new TabListTabletAdapter(this, tabController.getTabList()));
             }
             if(isTabChangedIncognito) {
                 tabController.changeTab(tabChangeIncognitoIndex, true);
@@ -497,6 +570,10 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
                     browserToolbarSearchInput.setText(tabController.getIncognitoTabData(tabChangeIndex).getUrl());
                 else
                     browserToolbarSearchInput.setText("");
+                // Update Tablet View
+                if(isTabletView)
+                    incognitoTabListRecyclerView.setAdapter(
+                            new TabListTabletAdapter(this, tabController.getIncognitoTabList()));
             }
             isTabChanged=false;
             isTabChangedIncognito=false;
@@ -520,6 +597,11 @@ public class MainActivity extends AppCompatActivity implements BrowserDataInterf
 
         browserToolbarProgressbar.setVisibility(View.GONE);
         super.onResume();
+    }
+
+    // for Tablet: Tab Closed
+    public void onTabUpdateWithTablet(){
+        onResume();
     }
 
     BroadcastReceiver onDownloadCompleted=new BroadcastReceiver() {

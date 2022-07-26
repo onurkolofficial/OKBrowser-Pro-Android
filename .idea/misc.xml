@@ -3,6 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout-sw600dp-land/activity_settings_gui.xml" value="0.1" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout-sw600dp/activity_main_simple.xml" value="0.12" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout-sw600dp/activity_settings_gui.xml" value="0.13166666666666665" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout/activity_main_dense.xml" value="0.2564814814814815" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout/activity_main_simple.xml" value="0.28888888888888886" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout/activity_settings_gui.xml" value="0.14291666666666666" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/activity/layout/activity_tab_list.xml" value="0.145" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout-sw600dp/item_tab_list_data.xml" value="0.13791666666666666" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout-sw600dp/item_tab_list_data_tablet.xml" value="0.15541666666666668" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout/item_tab_list_data.xml" value="0.1" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/items/layout/item_tab_list_data_tablet.xml" value="0.15541666666666668" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp-land/screen_installer_gui_mode.xml" value="0.1" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp-land/screen_tab_list.xml" value="0.1" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp/screen_installer_gui_mode.xml" value="0.14291666666666666" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout-sw600dp/screen_tab_list.xml" value="0.15541666666666668" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/screens/layout/screen_tab_list.xml" value="0.145" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/toolbars/layout-sw600dp/toolbar_main_simple.xml" value="0.13791666666666666" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/layouts/toolbars/layout/toolbar_main_simple.xml" value="0.145" />
+        <entry key="..\:/Projeler/Android/OKBrowser-Pro/app/src/main/res/theme/drawable/day_text_icon_color_selector.xml" value="0.1855" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_add.xml" value="0.1715" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_add_circle.xml" value="0.1605" />
         <entry key="..\:/Projelerim/Android/OKBrowser-Pro/app/src/main/res/drawables/drawable/ic_icon_app_logo.xml" value="0.1475" />

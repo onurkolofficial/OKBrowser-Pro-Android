@@ -170,6 +170,7 @@ public class ResourceDetailActivity extends AppCompatActivity implements Browser
                 }
                 else{
                     /* Show Text Sources */
+                    inputData=""; // Reset input text.
                     new Thread(() -> {
                         try {
                             // Get Input Data

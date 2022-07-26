@@ -2,6 +2,7 @@ package com.onurkol.app.browser.pro.interfaces.tabs;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.onurkol.app.browser.pro.webview.OKWebView;
@@ -55,7 +56,7 @@ public interface TabInterface {
     void setUIStateError();
     int getUIState();
 
-    @NonNull OKWebView getWebView();
+    @Nullable OKWebView getWebView();
 
     // For Developer Mode
     void setRequestDialog(BottomSheetDialog dialog);

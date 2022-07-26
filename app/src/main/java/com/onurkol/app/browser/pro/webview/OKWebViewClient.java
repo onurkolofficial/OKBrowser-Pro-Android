@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.onurkol.app.browser.pro.R;
+import com.onurkol.app.browser.pro.activity.MainActivity;
+import com.onurkol.app.browser.pro.adapters.tabs.TabListTabletAdapter;
 import com.onurkol.app.browser.pro.bottomsheets.developer.BottomSheetRequestList;
 import com.onurkol.app.browser.pro.bottomsheets.developer.BottomSheetResourceList;
 import com.onurkol.app.browser.pro.controller.PreferenceController;
@@ -148,13 +151,27 @@ public class OKWebViewClient extends WebViewClient implements BrowserDataInterfa
     }
 
     private void updateTabData(WebView view){
-        // Update Tab Data (Finish)
+        // Update Tab Data (Finished)
         currentTabData.setUrl(view.getUrl());
         currentTabData.setTitle(view.getTitle());
         if(currentTabData.getTabFragment().isIncognito())
             tabController.replaceIncognitoTabData(currentTabData.getTabIndex(), currentTabData);
         else
             tabController.replaceTabData(currentTabData.getTabIndex(), currentTabData);
+        // Update Tablet View
+        if(MainActivity.isTabletView){
+            RecyclerView tabListRecyclerView, incognitoTabListRecyclerView;
+            tabListRecyclerView=((Activity)wcContext).findViewById(R.id.tabListRecyclerView);
+            incognitoTabListRecyclerView=((Activity)wcContext).findViewById(R.id.incognitoTabListRecyclerView);
+            if(currentTabData.getTabFragment().isIncognito()){
+                incognitoTabListRecyclerView.setAdapter(new TabListTabletAdapter(wcContext,
+                        tabController.getIncognitoTabList()));
+            }
+            else{
+                tabListRecyclerView.setAdapter(new TabListTabletAdapter(wcContext,
+                        tabController.getTabList()));
+            }
+        }
         // Save Preference (is not incognito)
         if(currentTabData.getTabFragment()!=null &&
                 !currentTabData.getTabFragment().isIncognito() &&
